@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "run_status_version": {
+      "const": "1.0.0"
+    },
+    "status": {
+      "enum": [
+        "complete_execution",
+        "partial_execution",
+        "no_contributions_observed"
+      ]
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "capture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "profile_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "record_observations": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "distinct_record_keys": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "text_parts": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "text_characters": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unsupported_contributions": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "coverage": {
+      "const": "not_established"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "canonical_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "byte_length": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "byte_length"
+        ]
+      }
+    },
+    "canonical_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "run_status_version",
+    "status",
+    "plan_id",
+    "capture_sha256",
+    "profile_sha256",
+    "record_observations",
+    "distinct_record_keys",
+    "text_parts",
+    "text_characters",
+    "unsupported_contributions",
+    "coverage",
+    "limits",
+    "canonical_files",
+    "canonical_sha256"
+  ]
+}

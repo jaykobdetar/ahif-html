@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ahif-html"
+version = "0.1.0"
+description = "Bounded source-linked saved HTML extraction into AHIF 0.1.1"
+requires-python = ">=3.12,<3.13"
+dependencies = ["html5lib==1.1", "jsonschema==4.26.0", "referencing==0.37.0"]
+
+[project.scripts]
+ahif-html = "ahif_html.cli:main"
+
+[dependency-groups]
+dev = ["pytest==9.0.2"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ahif_html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "examples", "scripts", "docs", "reference", "README.md", "pyproject.toml", "uv.lock"]
+exclude = ["**/__pycache__", "**/*.pyc"]

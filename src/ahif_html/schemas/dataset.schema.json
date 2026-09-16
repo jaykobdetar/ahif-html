@@ -1,0 +1,406 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "dataset_version": {
+      "const": "1.0.0"
+    },
+    "designation": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+    },
+    "annotation_provenance": {
+      "enum": [
+        "agent_authored_construction_truth",
+        "human_reviewed",
+        "supplied_unreviewed"
+      ]
+    },
+    "human_reviewed": {
+      "type": "boolean"
+    },
+    "pages": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+          },
+          "capture": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "metadata": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "plan": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "gold": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "data_class": {
+            "enum": [
+              "synthetic",
+              "public",
+              "private",
+              "unknown"
+            ]
+          },
+          "family": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+          },
+          "thread": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "lineage": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "split": {
+            "enum": [
+              "development",
+              "held_out",
+              "transfer"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "capture",
+          "metadata",
+          "plan",
+          "gold",
+          "data_class",
+          "family",
+          "thread",
+          "lineage",
+          "split"
+        ]
+      }
+    }
+  },
+  "required": [
+    "dataset_version",
+    "designation",
+    "annotation_provenance",
+    "human_reviewed",
+    "pages"
+  ],
+  "$defs": {
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "annotation_version": {
+          "const": "1.0.0"
+        },
+        "provenance": {
+          "enum": [
+            "agent_authored_construction_truth",
+            "human_reviewed",
+            "supplied_unreviewed"
+          ]
+        },
+        "human_reviewed": {
+          "type": "boolean"
+        },
+        "capture_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "contributions": {
+          "type": "array",
+          "maxItems": 5000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "container": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "key_id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "enum": [
+                  "post",
+                  "reply",
+                  "repost",
+                  "quote_post",
+                  "article",
+                  "review",
+                  "other",
+                  "unknown"
+                ]
+              },
+              "actor_id": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "created": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "known",
+                      "date_only",
+                      "unknown"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "precision": {
+                    "enum": [
+                      "second",
+                      "millisecond",
+                      "microsecond",
+                      "nanosecond",
+                      null
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "value",
+                  "precision"
+                ]
+              },
+              "parts": {
+                "type": "array",
+                "maxItems": 128,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "role": {
+                      "enum": [
+                        "body",
+                        "title",
+                        "quote",
+                        "signature",
+                        "code",
+                        "caption",
+                        "link_preview",
+                        "interface",
+                        "unknown"
+                      ]
+                    },
+                    "text": {
+                      "type": "string",
+                      "maxLength": 2000000
+                    },
+                    "attribution": {
+                      "enum": [
+                        "record_actor",
+                        "other",
+                        "system",
+                        "unknown"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "text",
+                    "attribution"
+                  ]
+                }
+              },
+              "forbidden_body": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "role": {
+                      "enum": [
+                        "quote",
+                        "signature",
+                        "interface"
+                      ]
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "text"
+                  ]
+                }
+              },
+              "relations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "reply_to",
+                        "quotes",
+                        "reposts",
+                        "crossposts",
+                        "mentions",
+                        "other"
+                      ]
+                    },
+                    "target_id": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "target_collection": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "target_id",
+                    "target_collection"
+                  ]
+                }
+              },
+              "updated": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "known",
+                      "date_only",
+                      "unknown"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "precision": {
+                    "enum": [
+                      "second",
+                      "millisecond",
+                      "microsecond",
+                      "nanosecond",
+                      null
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "value",
+                  "precision"
+                ]
+              },
+              "contexts": {
+                "type": "array",
+                "maxItems": 0
+              },
+              "key_collection": {
+                "type": "string",
+                "minLength": 1
+              },
+              "key_namespace": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "container",
+              "key_id",
+              "kind",
+              "actor_id",
+              "created",
+              "parts",
+              "forbidden_body",
+              "relations",
+              "updated",
+              "contexts",
+              "key_collection",
+              "key_namespace"
+            ]
+          }
+        }
+      },
+      "required": [
+        "annotation_version",
+        "provenance",
+        "human_reviewed",
+        "capture_sha256",
+        "contributions"
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ahif-html:dataset:1.0.0"
+}

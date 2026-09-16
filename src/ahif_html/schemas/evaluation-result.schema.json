@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ahif-html:evaluation-result:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evaluation_version",
+    "designation",
+    "status",
+    "registration_sha256",
+    "data_classes",
+    "annotation_provenance",
+    "human_reviewed",
+    "mode",
+    "pages",
+    "aggregate",
+    "per_layout",
+    "coverage",
+    "cost",
+    "unexecuted",
+    "limitations"
+  ],
+  "properties": {
+    "evaluation_version": {
+      "const": "1.0.0"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "failed"
+      ]
+    },
+    "registration_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "data_classes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "synthetic",
+          "public",
+          "private",
+          "unknown"
+        ]
+      }
+    },
+    "annotation_provenance": {
+      "enum": [
+        "agent_authored_construction_truth",
+        "human_reviewed",
+        "supplied_unreviewed"
+      ]
+    },
+    "human_reviewed": {
+      "type": "boolean"
+    },
+    "mode": {
+      "const": "deterministic_plans"
+    },
+    "pages": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "family",
+          "split",
+          "status",
+          "error",
+          "metrics",
+          "grounding",
+          "replay",
+          "cost"
+        ]
+      }
+    },
+    "aggregate": {
+      "$ref": "#/$defs/aggregate"
+    },
+    "per_layout": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/aggregate"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "pages",
+        "entire_page_failures",
+        "partial_pages",
+        "records_awaiting_review",
+        "unsupported_evidence"
+      ]
+    },
+    "cost": {
+      "type": "object",
+      "required": [
+        "provider_calls",
+        "usage",
+        "monetary_cost",
+        "elapsed_seconds",
+        "process_peak_rss_kib",
+        "peak_resource_scope"
+      ]
+    },
+    "unexecuted": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "status",
+          "missing"
+        ],
+        "properties": {
+          "status": {
+            "const": "not_run"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "numerator",
+        "denominator",
+        "value",
+        "undefined_reason"
+      ],
+      "properties": {
+        "numerator": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "denominator": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "undefined_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "aggregate": {
+      "type": "object",
+      "required": [
+        "contribution_precision",
+        "contribution_recall",
+        "end_to_end_usable_recall",
+        "ordered_parts_exact",
+        "attribution",
+        "fidelity",
+        "contamination",
+        "metadata"
+      ],
+      "properties": {
+        "contribution_precision": {
+          "$ref": "#/$defs/metric"
+        },
+        "contribution_recall": {
+          "$ref": "#/$defs/metric"
+        },
+        "end_to_end_usable_recall": {
+          "$ref": "#/$defs/metric"
+        },
+        "ordered_parts_exact": {
+          "$ref": "#/$defs/metric"
+        }
+      }
+    }
+  }
+}

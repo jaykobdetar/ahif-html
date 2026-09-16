@@ -1,0 +1,28 @@
+.venv/
+.uv-cache/
+__pycache__/
+.pytest_cache/
+*.pyc
+local-runs/
+private/
+.env
+build/
+dist/
+
+# Local execution history, transcripts and publication preparation are private.
+qa/
+# Historical approved development configs remain local; public templates opt in.
+examples/model-config.live.forum.json
+examples/model-config.live.reviews.json
+# Detailed resource/timer identifiers remain in the local operational record.
+docs/RUNPOD-PLAN.md
+# Credential files must never be staged as project assets.
+.env.*
+.ssh/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+credentials.json

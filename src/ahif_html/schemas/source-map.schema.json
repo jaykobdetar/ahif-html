@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "source_map_version": {
+      "const": "1.0.0"
+    },
+    "capture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "index_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "plan_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "observation_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "record_key": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "type": "string"
+        },
+        "collection": {
+          "type": "string"
+        },
+        "id_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "namespace",
+        "collection",
+        "id_type",
+        "id"
+      ]
+    },
+    "container": {
+      "type": "string"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "outcome": {
+            "enum": [
+              "grounded",
+              "grounded_uncertain",
+              "unresolved_assignment",
+              "missing_evidence",
+              "unsupported",
+              "host_generated"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "node": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "text",
+                    "attribute",
+                    "region"
+                  ]
+                },
+                "attribute": {
+                  "type": "string"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "node",
+                "kind"
+              ]
+            }
+          },
+          "operation": {
+            "type": "string"
+          },
+          "decision": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mappings": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "output_start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "output_end": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "source": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "node": {
+                              "type": "string"
+                            },
+                            "kind": {
+                              "enum": [
+                                "text",
+                                "attribute",
+                                "region"
+                              ]
+                            },
+                            "attribute": {
+                              "type": "string"
+                            },
+                            "start": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "end": {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          },
+                          "required": [
+                            "node",
+                            "kind"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "output_start",
+                        "output_end",
+                        "source"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "output_start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "output_end": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "insertion": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "operation": {
+                              "enum": [
+                                "block_boundary",
+                                "line_break",
+                                "table_cell"
+                              ]
+                            },
+                            "node": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "operation",
+                            "node"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "output_start",
+                        "output_end",
+                        "insertion"
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "unit": {
+            "enum": [
+              "unicode_code_point",
+              null
+            ]
+          },
+          "coordinate_space": {
+            "enum": [
+              "emitted_part_text",
+              null
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "outcome",
+          "source_refs",
+          "operation",
+          "decision",
+          "mappings",
+          "unit",
+          "coordinate_space"
+        ]
+      }
+    }
+  },
+  "required": [
+    "source_map_version",
+    "capture_sha256",
+    "index_id",
+    "plan_id",
+    "observation_id",
+    "record_key",
+    "container",
+    "fields"
+  ]
+}

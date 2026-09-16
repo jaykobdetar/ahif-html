@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahif-html.invalid/schemas/1.0.0/correction.schema.json",
+  "type": "object",
+  "properties": {
+    "correction_version": {
+      "const": "1.0.0"
+    },
+    "base_plan_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "reviewer": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "agent",
+            "human"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "edits": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "properties": {
+          "contribution": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+          },
+          "field": {
+            "enum": [
+              "author",
+              "parts",
+              "created",
+              "updated",
+              "identity",
+              "kind",
+              "excluded",
+              "relations",
+              "links",
+              "state",
+              "completeness"
+            ]
+          },
+          "value": {},
+          "reason": {
+            "enum": [
+              "signature",
+              "interface",
+              "nested_contribution",
+              "quote",
+              "code",
+              "link_preview",
+              "hidden",
+              "unsupported",
+              "ambiguous",
+              "duplicate_appearance",
+              "not_contribution",
+              "missing_evidence",
+              "needs_review",
+              "resource_limit"
+            ]
+          }
+        },
+        "required": [
+          "contribution",
+          "field",
+          "value",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "correction_version",
+    "base_plan_id",
+    "reviewer",
+    "edits"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,783 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahif-html.invalid/schemas/1.0.0/plan.schema.json",
+  "type": "object",
+  "properties": {
+    "plan_version": {
+      "const": "1.0.0"
+    },
+    "capture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "index_id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "profile": {
+      "const": "html-structural-text/1.0.0"
+    },
+    "ancestry": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      },
+      "maxItems": 128
+    },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "manual",
+            "model",
+            "recorded",
+            "mock",
+            "recipe",
+            "correction"
+          ]
+        },
+        "producer": {
+          "type": "string",
+          "maxLength": 8192
+        }
+      },
+      "required": [
+        "kind",
+        "producer"
+      ],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "unreviewed",
+            "agent_reviewed",
+            "human_reviewed",
+            "unresolved"
+          ]
+        },
+        "reviewer": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "maxLength": 8192
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "reviewer"
+      ],
+      "additionalProperties": false
+    },
+    "contributions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "container": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+          },
+          "kind": {
+            "enum": [
+              "post",
+              "reply",
+              "quote_post",
+              "repost",
+              "review",
+              "article",
+              "unknown"
+            ]
+          },
+          "identity": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "native",
+                      "uri"
+                    ]
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "node": {
+                        "type": "string",
+                        "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                      },
+                      "kind": {
+                        "enum": [
+                          "text",
+                          "attribute"
+                        ]
+                      },
+                      "attribute": {
+                        "type": "string",
+                        "maxLength": 8192
+                      },
+                      "start": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "end": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "node",
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "basis": {
+                    "enum": [
+                      "documented_native",
+                      "identity_link"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                    },
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "kind",
+                  "source",
+                  "basis",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "identity": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "enum": [
+                              "native",
+                              "uri",
+                              "handle"
+                            ]
+                          },
+                          "source": {
+                            "type": "object",
+                            "properties": {
+                              "node": {
+                                "type": "string",
+                                "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                              },
+                              "kind": {
+                                "enum": [
+                                  "text",
+                                  "attribute"
+                                ]
+                              },
+                              "attribute": {
+                                "type": "string",
+                                "maxLength": 8192
+                              },
+                              "start": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "end": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "node",
+                              "kind"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "basis": {
+                            "enum": [
+                              "documented_native",
+                              "identity_link",
+                              "source_label"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "source",
+                          "basis"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "label": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "node": {
+                            "type": "string",
+                            "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                          },
+                          "kind": {
+                            "enum": [
+                              "text",
+                              "attribute"
+                            ]
+                          },
+                          "attribute": {
+                            "type": "string",
+                            "maxLength": 8192
+                          },
+                          "start": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "end": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "node",
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                    },
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "identity",
+                  "label",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "created": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "node": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                  },
+                  "kind": {
+                    "enum": [
+                      "text",
+                      "attribute"
+                    ]
+                  },
+                  "attribute": {
+                    "type": "string",
+                    "maxLength": 8192
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "node",
+                  "kind"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "updated": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "node": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                  },
+                  "kind": {
+                    "enum": [
+                      "text",
+                      "attribute"
+                    ]
+                  },
+                  "attribute": {
+                    "type": "string",
+                    "maxLength": 8192
+                  },
+                  "start": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "node",
+                  "kind"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                },
+                "role": {
+                  "enum": [
+                    "title",
+                    "body",
+                    "quote",
+                    "signature",
+                    "code",
+                    "caption",
+                    "link_preview",
+                    "interface",
+                    "unknown"
+                  ]
+                },
+                "attribution": {
+                  "enum": [
+                    "record_actor",
+                    "other",
+                    "unknown",
+                    "system"
+                  ]
+                },
+                "exclude": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                  },
+                  "maxItems": 128
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                  },
+                  "maxItems": 128
+                }
+              },
+              "required": [
+                "root",
+                "role",
+                "attribution",
+                "exclude",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 128
+          },
+          "excluded": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "node": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                },
+                "reason": {
+                  "enum": [
+                    "signature",
+                    "interface",
+                    "nested_contribution",
+                    "quote",
+                    "code",
+                    "link_preview",
+                    "hidden",
+                    "unsupported",
+                    "ambiguous",
+                    "duplicate_appearance",
+                    "not_contribution",
+                    "missing_evidence",
+                    "needs_review",
+                    "resource_limit"
+                  ]
+                }
+              },
+              "required": [
+                "node",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 128
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "reply_to",
+                    "quotes",
+                    "reposts"
+                  ]
+                },
+                "target": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "node": {
+                          "type": "string",
+                          "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                        },
+                        "kind": {
+                          "enum": [
+                            "text",
+                            "attribute"
+                          ]
+                        },
+                        "attribute": {
+                          "type": "string",
+                          "maxLength": 8192
+                        },
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "node",
+                        "kind"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "kind": {
+                  "enum": [
+                    "uri",
+                    "native",
+                    "unknown"
+                  ]
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                  },
+                  "maxItems": 128
+                }
+              },
+              "required": [
+                "type",
+                "target",
+                "kind",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 128
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "node": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                    },
+                    "kind": {
+                      "enum": [
+                        "text",
+                        "attribute"
+                      ]
+                    },
+                    "attribute": {
+                      "type": "string",
+                      "maxLength": 8192
+                    },
+                    "start": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "node",
+                    "kind"
+                  ],
+                  "additionalProperties": false
+                },
+                "role": {
+                  "enum": [
+                    "inline",
+                    "native_destination",
+                    "attachment",
+                    "profile",
+                    "other"
+                  ]
+                }
+              },
+              "required": [
+                "source",
+                "role"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 128
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "enum": [
+                      "removed",
+                      "deleted",
+                      "restricted"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                    },
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "value",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "completeness": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "enum": [
+                      "partial",
+                      "truncated",
+                      "redacted"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+                    },
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "value",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+            },
+            "maxItems": 128
+          }
+        },
+        "required": [
+          "container",
+          "kind",
+          "identity",
+          "author",
+          "created",
+          "updated",
+          "parts",
+          "excluded",
+          "relations",
+          "links",
+          "state",
+          "completeness",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5000
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+          },
+          "reason": {
+            "enum": [
+              "signature",
+              "interface",
+              "nested_contribution",
+              "quote",
+              "code",
+              "link_preview",
+              "hidden",
+              "unsupported",
+              "ambiguous",
+              "duplicate_appearance",
+              "not_contribution",
+              "missing_evidence",
+              "needs_review",
+              "resource_limit"
+            ]
+          }
+        },
+        "required": [
+          "node",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5000
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}:\\d+$"
+          },
+          "reason": {
+            "enum": [
+              "signature",
+              "interface",
+              "nested_contribution",
+              "quote",
+              "code",
+              "link_preview",
+              "hidden",
+              "unsupported",
+              "ambiguous",
+              "duplicate_appearance",
+              "not_contribution",
+              "missing_evidence",
+              "needs_review",
+              "resource_limit"
+            ]
+          }
+        },
+        "required": [
+          "node",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 5000
+    }
+  },
+  "required": [
+    "plan_version",
+    "capture_sha256",
+    "index_id",
+    "profile",
+    "ancestry",
+    "origin",
+    "review",
+    "contributions",
+    "rejected",
+    "unresolved"
+  ],
+  "additionalProperties": false
+}

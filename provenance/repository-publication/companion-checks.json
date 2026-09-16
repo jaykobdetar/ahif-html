@@ -1,0 +1,148 @@
+{
+  "receipt_version": "1.0.0",
+  "executed_at": "2026-09-16T03:29:27.104578+00:00",
+  "purpose": "Read-only verification of prepared documentation-only companion cross-links before publication.",
+  "method": "Read all base Git blob bytes via git cat-file and SHA-256 all current tracked file bytes; compare complete tracked inventory, exact change allowlist, original pre-assignment inventory, git diff --check, and local Markdown file/fragment destinations. Git optional locks disabled.",
+  "status": "passed",
+  "repositories": [
+    {
+      "repository": "ahif",
+      "base_commit": "7629dbe63521978f0b99319a373dfea42b8e6b81",
+      "head_at_check": "7629dbe63521978f0b99319a373dfea42b8e6b81",
+      "status": "passed",
+      "expected_changed_files": [
+        "README.md"
+      ],
+      "actual_changed_files": [
+        "README.md"
+      ],
+      "staged_files": [],
+      "untracked_files": [],
+      "base_tracked_file_count": 155,
+      "current_tracked_file_count": 155,
+      "unchanged_tracked_file_count": 154,
+      "base_matches_preassignment_inventory": true,
+      "base_inventory_sha256": "5ac981d9ac2b21f9a5bfafd270240b0419caf61d6b91f05a65af8cbc4975918b",
+      "current_inventory_sha256": "582de14588d5502484e916806f7d786a780654ad3692bf14a64b2dfe75364f70",
+      "changed_file_hashes": {
+        "README.md": {
+          "base_sha256": "4f34da11c30a9497bea7084366d7dc14e873853032fc614a5855baae87174c16",
+          "current_sha256": "4f981bc29ddf45d1a43e1694570c6eeab8b29ed5715f4f74ee109d436448e643"
+        }
+      },
+      "frozen_regions": {
+        "docs/ahif/": {
+          "tracked_files": 92,
+          "changed_files": []
+        },
+        "bridge/": {
+          "tracked_files": 7,
+          "changed_files": []
+        },
+        "profiles/": {
+          "tracked_files": 9,
+          "changed_files": []
+        }
+      },
+      "diff_sha256": "90850f0c4a8aea172729fef458a98176b80f5a4516bb6740d09610bab8433f41",
+      "diff_bytes": 1925,
+      "diff_check": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "diff_and_head_stable_during_check": true,
+      "local_markdown_targets_checked": 25,
+      "local_markdown_failures": [],
+      "fragment_checks": []
+    },
+    {
+      "repository": "account-history-analyzer",
+      "base_commit": "070213f0520d01529556e4aa7f4fa9270c22c6aa",
+      "head_at_check": "070213f0520d01529556e4aa7f4fa9270c22c6aa",
+      "status": "passed",
+      "expected_changed_files": [
+        "README.md",
+        "docs/AHIF.md"
+      ],
+      "actual_changed_files": [
+        "README.md",
+        "docs/AHIF.md"
+      ],
+      "staged_files": [],
+      "untracked_files": [],
+      "base_tracked_file_count": 2223,
+      "current_tracked_file_count": 2223,
+      "unchanged_tracked_file_count": 2221,
+      "base_matches_preassignment_inventory": true,
+      "base_inventory_sha256": "a0693afbb602a2a7f41da07c72c770793cee9ff25ec5ae04238aba03cc684834",
+      "current_inventory_sha256": "d0477db30cdc599004dadd49481c80319562adefbbf7665f5091bf6bc56e6379",
+      "changed_file_hashes": {
+        "README.md": {
+          "base_sha256": "654d4e2e5a7ea54e075dca7d3140ab0c343ddfaf202bba89194bf579e8f4a33f",
+          "current_sha256": "2ecf371c34615b97c24f0a7f448222434a459ce3ecd190eb4d4d3af4d157998a"
+        },
+        "docs/AHIF.md": {
+          "base_sha256": "73f57ba50e15909cb671e561df91db4bc63f059ce880294af6afea1efe147033",
+          "current_sha256": "6efce256a9a2a9359de449eb8ea248a36244b70a298f952a3303a510ad70c482"
+        }
+      },
+      "frozen_regions": {
+        "docs/ahif/": {
+          "tracked_files": 92,
+          "changed_files": []
+        },
+        "src/": {
+          "tracked_files": 54,
+          "changed_files": []
+        },
+        "schemas/": {
+          "tracked_files": 12,
+          "changed_files": []
+        },
+        "config/": {
+          "tracked_files": 2,
+          "changed_files": []
+        },
+        "resources/": {
+          "tracked_files": 2,
+          "changed_files": []
+        },
+        "studies/": {
+          "tracked_files": 1452,
+          "changed_files": []
+        }
+      },
+      "diff_sha256": "ffbca77af4184d60ccdff7575e8740ba3a895d2a0c79040ae02ec9b676f67efd",
+      "diff_bytes": 3526,
+      "diff_check": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "diff_and_head_stable_during_check": true,
+      "local_markdown_targets_checked": 48,
+      "local_markdown_failures": [],
+      "fragment_checks": [
+        {
+          "file": "README.md",
+          "target": "docs/AHIF.md#saved-html-extraction",
+          "exists": true,
+          "anchor_resolves": true
+        },
+        {
+          "file": "README.md",
+          "target": "docs/USAGE.md#install",
+          "exists": true,
+          "anchor_resolves": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "External GitHub destinations are not network-verified by this check; publication readback is a separate operation.",
+    "No analytical engine, prior study, private evidence, or scientific pilot was executed.",
+    "No companion file edits, commits or pushes were performed by this check."
+  ],
+  "checker_sha256": "1a3fb77661c4088b38645fc6006854a48aeae0075d47a13f8739bd8422945656"
+}

@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ahif-html:model-config:1.0.0",
+  "type": "object",
+  "properties": {
+    "version": {
+      "enum": [
+        "1.0.0"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "live",
+        "recorded",
+        "mock"
+      ]
+    },
+    "endpoint": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]*$"
+    },
+    "responses_file": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4096
+    },
+    "reviewer": {
+      "type": "boolean"
+    },
+    "num_ctx": {
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 16384
+    },
+    "min_available_memory_mib": {
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 16384
+    },
+    "data_approval": {
+      "type": "object",
+      "properties": {
+        "approved": {
+          "type": "boolean"
+        },
+        "data_classes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "synthetic",
+              "public",
+              "private",
+              "unknown"
+            ]
+          },
+          "uniqueItems": true,
+          "maxItems": 4
+        },
+        "capture_sha256": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "uniqueItems": true,
+          "maxItems": 100
+        },
+        "declaration": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": [
+        "approved",
+        "data_classes",
+        "capture_sha256",
+        "declaration"
+      ],
+      "additionalProperties": false
+    },
+    "budgets": {
+      "type": "object",
+      "properties": {
+        "max_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "max_tool_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "max_input_token_charge": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4000000
+        },
+        "max_output_tokens_per_call": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "max_output_tokens_total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        },
+        "max_response_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 1048576
+        },
+        "max_recording_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "maximum": 8388608
+        },
+        "max_inspected_characters": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120000
+        },
+        "max_wall_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "max_repairs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "max_input_tokens_total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 524288
+        }
+      },
+      "required": [
+        "max_calls",
+        "max_tool_calls",
+        "max_input_token_charge",
+        "max_output_tokens_per_call",
+        "max_output_tokens_total",
+        "max_response_bytes",
+        "max_recording_bytes",
+        "max_inspected_characters",
+        "max_wall_seconds",
+        "max_retries",
+        "max_repairs",
+        "max_input_tokens_total"
+      ],
+      "additionalProperties": false
+    },
+    "response_format": {
+      "enum": [
+        "json",
+        "schema"
+      ]
+    },
+    "provider_location": {
+      "enum": [
+        "workstation",
+        "remote_tunnel"
+      ]
+    },
+    "tunnel_declaration": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "enum": [
+                "runpod"
+              ]
+            },
+            "resource_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "authorization": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "max_hourly_cost_usd": {
+              "type": "string",
+              "pattern": "^0\\.[0-9]+$"
+            },
+            "max_runtime_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3600
+            }
+          },
+          "required": [
+            "provider",
+            "resource_id",
+            "authorization",
+            "max_hourly_cost_usd",
+            "max_runtime_seconds"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "version",
+    "mode",
+    "endpoint",
+    "model",
+    "responses_file",
+    "reviewer",
+    "num_ctx",
+    "min_available_memory_mib",
+    "data_approval",
+    "budgets",
+    "response_format",
+    "provider_location",
+    "tunnel_declaration"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "live"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "endpoint": {
+            "type": "string"
+          },
+          "responses_file": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "endpoint": {
+            "type": "null"
+          },
+          "responses_file": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahif-html.invalid/schemas/1.0.0/recipe.schema.json",
+  "type": "object",
+  "properties": {
+    "recipe_version": {
+      "const": "1.0.0"
+    },
+    "recipe_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "profile_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8192
+      },
+      "minItems": 1,
+      "maxItems": 128
+    },
+    "containers": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "object",
+          "properties": {
+            "tag": {
+              "type": "string",
+              "maxLength": 1024
+            },
+            "attribute": {
+              "type": "string",
+              "maxLength": 1024
+            },
+            "equals": {
+              "type": "string",
+              "maxLength": 1024
+            },
+            "class_token": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "minimum": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "maximum": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        }
+      },
+      "required": [
+        "selector",
+        "minimum",
+        "maximum"
+      ],
+      "additionalProperties": false
+    },
+    "bindings": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^\\$[a-z][a-z0-9_]*$"
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string",
+                "maxLength": 1024
+              },
+              "attribute": {
+                "type": "string",
+                "maxLength": 1024
+              },
+              "equals": {
+                "type": "string",
+                "maxLength": 1024
+              },
+              "class_token": {
+                "type": "string",
+                "maxLength": 1024
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "minProperties": 1
+          },
+          "kind": {
+            "enum": [
+              "element",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "selector",
+          "kind"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "contribution_template": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "recipe_version",
+    "recipe_id",
+    "profile_sha256",
+    "assumptions",
+    "containers",
+    "bindings",
+    "contribution_template"
+  ],
+  "additionalProperties": false
+}

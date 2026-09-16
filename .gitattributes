@@ -1,0 +1,3 @@
+# Captured fixture bytes are evidence; never normalize their line endings.
+examples/fictional/*.html -text whitespace=cr-at-eol
+examples/recipes/*.html -text whitespace=cr-at-eol

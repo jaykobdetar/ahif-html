@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahif-html.invalid/schemas/1.0.0/batch.schema.json",
+  "type": "object",
+  "properties": {
+    "batch_version": {
+      "const": "1.0.0"
+    },
+    "pages": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,80}$"
+          },
+          "capture": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8192
+              }
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "id",
+          "capture",
+          "metadata",
+          "plan"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "max_total_input_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 67108864
+    },
+    "max_total_output_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 268435456
+    },
+    "max_wall_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 600
+    }
+  },
+  "required": [
+    "batch_version",
+    "pages",
+    "max_total_input_bytes",
+    "max_total_output_bytes",
+    "max_wall_seconds"
+  ],
+  "additionalProperties": false
+}
