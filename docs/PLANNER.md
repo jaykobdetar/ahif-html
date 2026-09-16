@@ -1,4 +1,4 @@
-# Bounded planner and explicit provider, version 1.0.0
+# Bounded planner and explicit provider, discovery version 1.1.0
 
 The planner proposes source references. Accepted proposals go through
 `plans.validate_plan` and the same `executor.execute_index` used by explicit
@@ -16,7 +16,7 @@ the adapter transport test is a fake HTTP response test, not a live model test.
 Discovery never reads gold annotations, hand-authored plans, expected-output
 files, or capture filenames as extraction rules.
 
-Fresh live development evidence is retained under `qa/live-discovery-*`, with
+Historical discovery-1.0.0 live development evidence is retained under `qa/live-discovery-*`, with
 registration, approved frozen capture bytes, config, model digest, memory
 monitoring, every attempted response and final failure/success status. Consult
 those receipts for actual outcomes; an implemented adapter alone is not evidence
@@ -115,7 +115,9 @@ and used a shared batch budget. Metadata gateway requests are counted
 separately from inference calls. No concurrent model ensemble is implemented.
 
 Failure, exhaustion, refusal and cancellation produce a retained receipt and no
-accepted bundle. Already returned proposals remain in attempt/call logs. This
+accepted bundle when the complete run fits the output budget. The total publication
+cap includes transcripts, sidecars and extraction output. A run exceeding that cap
+is not published; the CLI can retain a separate bounded failure diagnostic. Already returned proposals remain in attempt/call logs. This
 version does not try to publish independently valid records from an otherwise
 invalid proposal. Batch-level cost registration is the caller's responsibility;
 the single-page API cannot silently impose or infer a larger shared budget.
@@ -123,7 +125,8 @@ the single-page API cannot silently impose or infer a larger shared budget.
 ## Tools and review
 
 The host exposes only `page_outline`, `inspect_node`, `inspect_neighbors`,
-`read_attribute`, `search_text`, `find_structural_candidates`, and `preview_plan`.
+`read_attribute`, `search_text`, `find_structural_candidates`, `preview_plan`,
+`candidate_inventory`, and `inspect_candidate`.
 All refer to the current immutable index. Unexpected action keys, arbitrary tools,
 bad references, unknown transformations, literal source fields and cardinality
 errors fail host checks. Model context retains explicit node references and
@@ -138,10 +141,15 @@ capture-bound references and need no model alias resolution during replay.
 
 Set `reviewer:true` to request the evidence-focused workflow. A fresh reviewer
 context initially receives evidence without the planner proposal or explanation.
-It must independently inspect a structural region before seeing the plan.
-Only a returned, non-withheld structural view satisfies that preliminary check;
-an error or wholly discarded oversized view does not. Only then can it return
-short, source-referenced enum decisions. Agreement marks
+It must independently inspect every inventoried candidate and return source-linked
+observations before seeing the plan. Candidate roots alone do not suffice: nonempty
+regions also require actual retained text evidence. Failed, withheld, or truncated
+text views do not satisfy this check. After the plan is revealed, a separate check
+for every candidate covers boundaries, authors, roles, times, and omissions. Every
+selected value, retained body text node, and boundary must have been inspected.
+Exclusions need visible structure, not disclosure of hidden/private text. Selected
+attributes require the actual complete policy-permitted value; an element view
+with a masked URL or shortened attribute does not make that value readable. Agreement marks
 an **agent** review, never human review or guaranteed semantic correctness.
 
 One reviewer pass is supported. A requested revision can produce a bounded repair
@@ -150,6 +158,81 @@ or correction. The host does not pretend structural validity proves that a
 wrong-author criticism was resolved. Such a run emits no accepted extraction.
 Planner-only structural failures can be repaired automatically within the stated
 limit, and every failed proposal/repair retains its validation outcome and ancestry.
+
+## Discovery gate 1.1.0 and supported accounting
+
+Runtime prompts are `prompts/1.1.0`; the response schema is
+`schemas/planner-response-1.1.0.schema.json`. Prompts and response schema 1.0.0
+remain byte-identical historical inputs. Model config and plan syntax remain
+1.0.0. A baseline comparison must run the archived baseline implementation;
+selecting a different model does not restore the old acceptance rules. Historical
+receipts above are not new executions of discovery 1.1.0.
+
+`candidates.py` enumerates a finite, deterministic inventory bound to the immutable
+index. Signals are visible `article`, `li`, `blockquote`, `section`, `tr`, and `dd`
+elements, documented native-ID attributes, a small declared set of exact semantic
+class hints, and article/listitem/comment roles. These broad signals deliberately
+include wrappers, navigation, and quotations that may need rejection. Unsupported
+subtrees are counted separately. No website name, fixture ID, expected answer or
+gold annotation selects a mapping. Unrecognized layouts may have additional
+contributions outside this inventory; omitted unsupported patterns remain a
+semantic limitation. Neither inventory traversal nor complete accounting proves
+page or account completeness.
+
+The inventory ceiling is the configured `candidates` limit (default 5,000). An
+overflow refuses discovery before inference, preserving a capped inventory and
+explicit total/truncation status. Candidate pagination uses ordinal offsets:
+
+```json
+{"action":"tool","name":"candidate_inventory","arguments":{"start":0,"limit":10}}
+```
+
+To inspect a candidate, page its subtree while repeating bounded parent/header
+context. Node boundaries, source refs and truncation flags remain visible:
+
+```json
+{"action":"tool","name":"inspect_candidate","arguments":{"candidate_ref":"n12","start":0,"limit":12,"max_characters":300}}
+```
+
+Follow `next_start`. Each call shares the ordinary Inspector call/character/time
+budgets. Oversized serialized views return an explicit discarded-view result and
+do not count as evidence inspected. Context is a bounded preview; it is not a
+claim to have exposed every header field or visual layout.
+
+A final proposal must give every inventory candidate exactly one disposition:
+
+- **Include:** its exact node is a selected contribution container.
+- **Reject:** its exact node appears in `rejected` with a declared enum reason.
+- **Unresolved:** its exact node appears in `unresolved` with a declared reason.
+
+A parent disposition does not dispose of nested candidates. A quote can be
+rejected as an event while separately retained as a quote content part. The
+planner can select additional grounded containers outside the inventory. The
+sidecars `discovery/candidate-inventory.json` and `candidate-accounting.json`
+record these distinctions, missing/conflicting decisions, inventory and plan
+bindings, and `not_completeness_proof:true`. An unresolved region permits an
+otherwise valid **partial** extraction; it never becomes an invented event.
+
+Reference repairs receive exact failing JSON paths, bounded unknown-reference
+examples, and valid tool argument names. The host does not guess a replacement
+node or source value. Failed attempts and costs remain retained.
+
+Reviewer `ready_for_review` now requires `observations` for all candidates, with
+`node`, `interpretation` (possible_contribution/non_contribution/uncertain), and
+inspected `evidence` refs. Final `review` requires `checks` for the inventory and
+additional selected containers. Each check gives `node`, `decision`
+(supported/issue/unresolved), all five `aspects` (boundary/author/roles/time/omissions),
+and actual `evidence`. Approval requires supported checks, no issues, and fully
+readable selected evidence. Schema and source-exposure checks still cannot prove
+the reviewer thought carefully or interpreted the page correctly. Evidence too
+large for current full-text views, withheld selected attributes, and exhausted
+budgets produce explicit abstention rather than automatic approval.
+
+Offline construction/mock tests exercise positive partial extraction, omitted
+candidates, navigation rejection, pagination/context, malformed references,
+resource limits, reviewer coverage, excluded hidden/UI/signature regions, and
+unreadable selected attributes. These tests demonstrate host mechanics, not live
+model recall. New evaluation results belong to a separately frozen run.
 
 ## Running
 
@@ -172,7 +255,12 @@ exact argument contract. The destination must be new. For recorded mode, config
 model cannot choose it. For model-free replay, use `extract` with the saved
 finalized plan, then `verify` against the accepted capture/plan/profile artifacts.
 
-`scripts/run_model_trial.py` registers a fixed synthetic inventory before calls:
+The current eight-page paired evaluation uses `scripts/run_discovery_v2.py`;
+see [its registered design and commands](DISCOVERY-V2-EVALUATION.md). It freezes
+implementation, prompts, inputs and budgets, retains every registered job and
+reports fixed repeats separately.
+
+The older `scripts/run_model_trial.py` registers a smaller synthetic inventory before calls:
 two development families, both planner/reviewer arms on the same reserved comment
 family, and a fresh development repeat. It freezes capture/metadata bytes, keeps
 construction annotations in an evaluator-only directory, passes no annotation

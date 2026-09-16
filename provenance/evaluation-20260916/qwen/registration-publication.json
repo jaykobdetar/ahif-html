@@ -1,0 +1,14 @@
+{
+  "artifact": "registration.json",
+  "changes": [
+    {
+      "json_pointer": "/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    }
+  ],
+  "mode": "publication_derivative",
+  "original_sha256": "3a254c1a32f16fe7da0bd527d51354d8f958d5d77faebd8295b5b5bc4df47cdb",
+  "publication_version": "1.0.0",
+  "published_sha256": "5928762d5ee0df7767ecdfba615554c4a3a8f6f483592ba8e5e3b6f491b6a9f2"
+}

@@ -65,7 +65,7 @@ def correct(capture,run,corrections,destination,metadata=None,limits=None):
     plan['review']={'status':'human_reviewed' if declaration['kind']=='human' else 'agent_reviewed','reviewer':declaration['name']}
     validate_plan(index,plan)
     # Preserve operational correction declaration without changing accepted set.
-    with fresh(destination) as stage:
+    with fresh(destination,output_limit=limits_for(limits)['output_bytes']) as stage:
         result=execute_index(index,plan,stage/'run',limits)
         write_json(stage/'correction.json',corrections)
         write_json(stage/'correction-receipt.json',{'status':'applied','base_plan_id':plan_id(original),'new_plan_id':plan_id(plan),'review_declaration':'supplier_declaration_not_identity_verification'})

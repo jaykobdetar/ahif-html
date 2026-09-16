@@ -1,0 +1,60 @@
+{
+  "finding": "HTML-REV-003",
+  "test_provenance": "reconstructed_from_user_report_original_review_files_lost",
+  "environment": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "baseline_commit": "70e3a07cc7bfaf0e42f93cd99cd2c40f73d2177a",
+  "command": [
+    "<extractor-workspace>/.venv/bin/python",
+    "-m",
+    "ahif_html",
+    "inspect",
+    "--capture",
+    "<extractor-workspace>/examples/fictional/forum.html",
+    "--limits",
+    "<extractor-workspace>/qa/repair-20260916/before/inspect-limits.json",
+    "--out",
+    "<extractor-workspace>/qa/repair-20260916/before/inspect-output"
+  ],
+  "exit_code": 0,
+  "allowed_output_bytes": 100,
+  "actual_published_output_bytes": 22275,
+  "expected": "resource_limit; no accepted index published",
+  "actual": {
+    "coverage": "not_established",
+    "index_id": "sha256:54a4d9aebdd8c6be929cd4b1b0909a3f3fc147a9fb7ac8778a14e5a59d3e4365",
+    "indexed_nodes": 56,
+    "indicators": [
+      {
+        "code": "unrepresented_frame",
+        "ref": "sha256:5268cea724c534f65c24f3b946fdb3ca0f3d2a418bfc138dd2e4d923f45c8770:55"
+      }
+    ],
+    "status": "complete_execution",
+    "worker_isolation": {
+      "address_space_mib": 1024,
+      "cpu_seconds": 60,
+      "denied_syscalls": [
+        "socket",
+        "socketpair",
+        "connect",
+        "bind",
+        "listen",
+        "accept",
+        "accept4",
+        "sendto",
+        "sendmsg",
+        "sendmmsg",
+        "recvfrom",
+        "recvmsg",
+        "recvmmsg",
+        "execve",
+        "execveat"
+      ],
+      "filesystem": "validated explicit paths; no kernel filesystem jail",
+      "method": "Linux libseccomp default-allow with network and exec syscall denial",
+      "scope": "deterministic CLI process and inherited descendants",
+      "wall_seconds": 60
+    }
+  },
+  "regression_assertion_passed": false
+}

@@ -1,0 +1,83 @@
+{
+  "delivery_version": "0.2.0",
+  "created_at": "2026-09-16T06:16:03.919664+00:00",
+  "status": "completed_with_semantic_limitations",
+  "runtime_freeze_unchanged": true,
+  "tests": {
+    "passed": 231,
+    "failed": 0,
+    "skipped": 0,
+    "cli_checks": 13
+  },
+  "canonical_files_replayed": 8,
+  "packaged_and_workspace_canonical_files_equal": true,
+  "historical_files_rechecked": 1106,
+  "reference_files_rechecked": 4756,
+  "preservation_differences": [],
+  "model": {
+    "mode": "live",
+    "jobs": 18,
+    "primary_unique_pages": 8,
+    "planner_matched": 13,
+    "primary_reference_contributions_per_arm": 26,
+    "planner_fully_usable": 2,
+    "reviewer_fully_usable": 0,
+    "known_fully_usable": 0,
+    "known_reference_contributions": 20,
+    "accepted_runs_verified": 6,
+    "real_captures": 0,
+    "human_reviewed": false
+  },
+  "paid_resource": {
+    "deleted_and_independently_confirmed": true,
+    "estimated_usd": "0.197666",
+    "actual_billed_usd": null
+  },
+  "publication": "none; local source changes only",
+  "evidence": {
+    "mechanical_delivery": {
+      "path": "qa/repair-20260916/delivery-02/delivery-receipt.json",
+      "sha256": "1ae85e72a7cdc09dea3b00437ca703015e07d37628a950b1da354222cd92e6a5"
+    },
+    "paired_regressions": {
+      "path": "qa/revisions/html-rev-001-002/final-paired-stable-order/execution-receipt.json",
+      "sha256": "a31ea41df55168c116ed6c9f4bd7f1974de49fb87aa3c9b8a43849ffced29767"
+    },
+    "output_limits": {
+      "path": "qa/repair-20260916/after/output-limit-tests.receipt.json",
+      "sha256": "c8b26995c7e1d4c5ef2f8d4172bf4947ef27cab74ebfdb46a8ec7eab1ee2b8f6"
+    },
+    "preservation": {
+      "path": "qa/repair-20260916/preservation-after.json",
+      "sha256": "34573da1bced25e2f1606de5b7751831018b99969cde58817a84aa3e5fdc9469"
+    },
+    "manual_construction": {
+      "path": "qa/discovery-v2-construction-02/evaluation.json",
+      "sha256": "ab35a39b59a8dd7367f1f52c18dfb0d87ab8974d7617eb91b123a12c8ba55d6c"
+    },
+    "live_registration": {
+      "path": "qa/discovery-v2-model-01/registration.json",
+      "sha256": "3a254c1a32f16fe7da0bd527d51354d8f958d5d77faebd8295b5b5bc4df47cdb"
+    },
+    "live_report": {
+      "path": "qa/discovery-v2-model-01/trial-report.json",
+      "sha256": "6d13f9a8c7d5f252626593f03f8d92f0181e8baa544de7ddedc166d1d8042b6e"
+    },
+    "live_execution": {
+      "path": "qa/discovery-v2-model-01/execution-receipt.json",
+      "sha256": "e9abd6fe68486f577fe9eba3c3db7a3b1968d6ba103ec1ad224f6cc771673c14"
+    },
+    "safe_export": {
+      "path": "qa/discovery-v2-model-01-safe/export-manifest.json",
+      "sha256": "cfcf858bb0caf0f450c3a29075199f330b8d714519af2c6c095671d2eb3a0e4f"
+    },
+    "independent_resource_absence": {
+      "path": "qa/repair-20260916/independent-runpod-deletion-check.json",
+      "sha256": "2a24c76e41fde28ec787dd238488747c6947accaf789744d1ffb09b8d0b0dd50"
+    },
+    "packaging": {
+      "path": "qa/repair-20260916/package-check/receipt.json",
+      "sha256": "22a566a552cd921f0b282b17beb18a6b48b97fb22ceaf3415450e76a01cc5d19"
+    }
+  }
+}

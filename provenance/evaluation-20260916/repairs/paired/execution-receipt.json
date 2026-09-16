@@ -1,0 +1,73 @@
+{
+  "receipt_version": "1.0.0",
+  "designation": "reconstructed-user-findings-final-paired-probes-v3-stable-diagnostics",
+  "original_review_files": "unavailable; not executed",
+  "annotation_provenance": "implementation-agent fictional construction truth",
+  "time_utc": "2026-09-16T05:25:54.050198+00:00",
+  "python": "3.12.3",
+  "baseline_commit": "70e3a07cc7bfaf0e42f93cd99cd2c40f73d2177a",
+  "test_sha256": "2913f0141cd69c72a78227a2d5323a25e39408e104ec91a2f035b88ebf365705",
+  "probe_sha256": "8cfd6d86f06224b6e6c96e0cea2be12e90b6c68345e3b291c3efbad8731fc6e6",
+  "commands": [
+    {
+      "phase": "baseline",
+      "kind": "regression_tests",
+      "argv": [
+        "<extractor-workspace>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "<extractor-workspace>/tests/test_revision_semantic_gates.py",
+        "-q",
+        "--junitxml=<extractor-workspace>/qa/revisions/html-rev-001-002/final-paired-stable-order/baseline-regressions.xml"
+      ],
+      "pythonpath": "<baseline-checkout>/src",
+      "exit_code": 1
+    },
+    {
+      "phase": "baseline",
+      "kind": "serialized_extraction_full_verification",
+      "argv": [
+        "<extractor-workspace>/.venv/bin/python",
+        "<extractor-workspace>/qa/revisions/html-rev-001-002/probe.py",
+        "--out",
+        "<extractor-workspace>/qa/revisions/html-rev-001-002/final-paired-stable-order/baseline-probes",
+        "--tests",
+        "<extractor-workspace>/tests",
+        "--phase",
+        "baseline"
+      ],
+      "pythonpath": "<baseline-checkout>/src",
+      "exit_code": 0
+    },
+    {
+      "phase": "repaired",
+      "kind": "regression_tests",
+      "argv": [
+        "<extractor-workspace>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "<extractor-workspace>/tests/test_revision_semantic_gates.py",
+        "-q",
+        "--junitxml=<extractor-workspace>/qa/revisions/html-rev-001-002/final-paired-stable-order/repaired-regressions.xml"
+      ],
+      "pythonpath": "<extractor-workspace>/src",
+      "exit_code": 0
+    },
+    {
+      "phase": "repaired",
+      "kind": "serialized_extraction_full_verification",
+      "argv": [
+        "<extractor-workspace>/.venv/bin/python",
+        "<extractor-workspace>/qa/revisions/html-rev-001-002/probe.py",
+        "--out",
+        "<extractor-workspace>/qa/revisions/html-rev-001-002/final-paired-stable-order/repaired-probes",
+        "--tests",
+        "<extractor-workspace>/tests",
+        "--phase",
+        "repaired"
+      ],
+      "pythonpath": "<extractor-workspace>/src",
+      "exit_code": 0
+    }
+  ]
+}

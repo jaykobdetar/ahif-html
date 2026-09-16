@@ -1,0 +1,99 @@
+{
+  "artifact": "trial-report.json",
+  "changes": [
+    {
+      "json_pointer": "/results/0/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/1/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/2/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/3/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/4/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/5/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/6/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/7/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/8/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/9/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/10/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/11/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/12/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/13/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/14/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/15/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/16/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    },
+    {
+      "json_pointer": "/results/17/receipt/operation/tunnel_declaration/resource_id",
+      "operation": "replace",
+      "replacement": "publication-redacted:disposed-resource"
+    }
+  ],
+  "mode": "publication_derivative",
+  "original_sha256": "6d13f9a8c7d5f252626593f03f8d92f0181e8baa544de7ddedc166d1d8042b6e",
+  "publication_version": "1.0.0",
+  "published_sha256": "8724149f1ff51e368991b106c966c4e6411ae29ad0ce034add8e68a43f9e5f91"
+}

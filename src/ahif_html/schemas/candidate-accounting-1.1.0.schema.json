@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ahif-html:candidate-accounting:1.1.0",
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": "1.1.0"
+    },
+    "inventory_id": {
+      "type": "string"
+    },
+    "decisions": {
+      "type": "array",
+      "maxItems": 5000,
+      "items": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "decision": {
+            "enum": [
+              "include",
+              "reject",
+              "unresolved"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "node",
+          "decision",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "conflicting": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "additional_selected": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "inventory_truncated": {
+      "type": "boolean"
+    },
+    "not_completeness_proof": {
+      "const": true
+    },
+    "accounted": {
+      "type": "boolean"
+    },
+    "plan_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "inventory_id",
+    "decisions",
+    "missing",
+    "conflicting",
+    "additional_selected",
+    "inventory_truncated",
+    "not_completeness_proof",
+    "accounted"
+  ]
+}

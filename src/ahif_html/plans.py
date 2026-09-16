@@ -58,12 +58,25 @@ def validate_plan(index,plan):
             part_scope={n['ref'] for n in descendants(index,p['root'])}
             for x in p['exclude']:
                 if x not in part_scope or x==p['root']:raise Failure('part_exclusion_outside_root')
+            segments=text_segments(index,p['root'],list(excluded|set(p['exclude'])))
             if p['role'] in ('body','title'):
-                blocked={n['ref'] for x in (set(p['exclude'])|excluded) for n in descendants(index,x)}
-                boundaries={n['ref'] for n in descendants(index,p['root']) if n['tag'] in ('blockquote','pre','code')}
-                if boundaries-blocked:raise Failure('structural_quote_or_code_boundary_required')
+                # Evaluate the actual retained ranges, not only descendants of
+                # the selected root. Selecting a child text/element, or moving
+                # the contribution container into a quote, must not erase its
+                # enclosing structural role. Excluded and empty subregions do
+                # not contribute ranges and cannot contaminate another part.
+                selected_sources={m['source']['node'] for segment in segments
+                                  for m in segment['mappings'] if 'source' in m}
+                for ref in sorted(selected_sources,key=lambda ref:lookup[ref]['order']):
+                    ancestor=lookup[ref]
+                    while ancestor is not None:
+                        if ancestor['tag'] in ('blockquote','pre','code'):
+                            code=('structural_quote_or_code_boundary_required' if ancestor['ref'] in part_scope
+                                  else 'structural_quote_or_code_ancestor_forbids_body_title')
+                            raise Failure(code)
+                        ancestor=lookup.get(ancestor['parent'])
             if p['role'] in ('quote','signature','interface','link_preview') and p['attribution']=='record_actor':raise Failure('nonbody_actor_attribution_unsupported')
-            for segment in text_segments(index,p['root'],list(excluded|set(p['exclude']))):
+            for segment in segments:
                 for m in segment['mappings']:
                     if 'source' not in m:continue
                     s=m['source'];key=(s['node'],s['kind'],s.get('attribute'))

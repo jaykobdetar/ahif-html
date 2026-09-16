@@ -3,7 +3,7 @@ from __future__ import annotations
 from html import escape
 from pathlib import Path
 
-from .common import C, Failure, check_path, fresh, load_json, safe_read, sha, write_json, ahif
+from .common import C, Failure, check_path, fresh, load_json, safe_read, sha, write_json, ahif, limits_for
 
 
 def _jsonl(path):
@@ -82,8 +82,10 @@ def write_review(run, destination):
     return result
 
 
-def review(run, destination):
-    with fresh(destination) as stage:
+def review(run, destination, limits=None):
+    inherited=load_json(Path(run)/'run-receipt.json')['limits']['output_bytes']
+    cap=min(inherited,limits_for(limits)['output_bytes'])
+    with fresh(destination,output_limit=cap) as stage:
         result = write_review(run, stage / 'content')
         for child in (stage / 'content').iterdir():
             child.rename(stage / child.name)

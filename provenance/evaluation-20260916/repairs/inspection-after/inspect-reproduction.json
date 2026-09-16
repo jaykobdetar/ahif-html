@@ -1,0 +1,122 @@
+{
+  "finding": "HTML-REV-003",
+  "environment": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "capture_sha256": "b48ca6f2d4ffb4da3e6f52e74bece294b19ecb273511a8fe963a22a579877870",
+  "test_provenance": "reconstructed_from_user_report_original_review_files_lost",
+  "results": [
+    {
+      "name": "normal",
+      "command": [
+        "<extractor-workspace>/.venv/bin/python",
+        "-m",
+        "ahif_html",
+        "inspect",
+        "--capture",
+        "<extractor-workspace>/examples/fictional/forum.html",
+        "--out",
+        "<extractor-workspace>/qa/repair-20260916/after/normal"
+      ],
+      "exit_code": 0,
+      "accepted_output_cap": null,
+      "files": [
+        "index.json",
+        "inspection.json",
+        "isolation.json"
+      ],
+      "actual_output_bytes": 22275,
+      "receipt": {
+        "coverage": "not_established",
+        "index_id": "sha256:54a4d9aebdd8c6be929cd4b1b0909a3f3fc147a9fb7ac8778a14e5a59d3e4365",
+        "indexed_nodes": 56,
+        "indicators": [
+          {
+            "code": "unrepresented_frame",
+            "ref": "sha256:5268cea724c534f65c24f3b946fdb3ca0f3d2a418bfc138dd2e4d923f45c8770:55"
+          }
+        ],
+        "status": "complete_execution",
+        "worker_isolation": {
+          "address_space_mib": 1024,
+          "cpu_seconds": 60,
+          "denied_syscalls": [
+            "socket",
+            "socketpair",
+            "connect",
+            "bind",
+            "listen",
+            "accept",
+            "accept4",
+            "sendto",
+            "sendmsg",
+            "sendmmsg",
+            "recvfrom",
+            "recvmsg",
+            "recvmmsg",
+            "execve",
+            "execveat"
+          ],
+          "filesystem": "validated explicit paths; no kernel filesystem jail",
+          "method": "Linux libseccomp default-allow with network and exec syscall denial",
+          "scope": "deterministic CLI process and inherited descendants",
+          "wall_seconds": 60
+        }
+      }
+    },
+    {
+      "name": "100-bytes",
+      "command": [
+        "<extractor-workspace>/.venv/bin/python",
+        "-m",
+        "ahif_html",
+        "inspect",
+        "--capture",
+        "<extractor-workspace>/examples/fictional/forum.html",
+        "--out",
+        "<extractor-workspace>/qa/repair-20260916/after/100-bytes",
+        "--limits",
+        "<extractor-workspace>/qa/repair-20260916/after/100-bytes-limits.json"
+      ],
+      "exit_code": 2,
+      "accepted_output_cap": 100,
+      "files": [
+        "failed-attempt.json"
+      ],
+      "actual_output_bytes": 624,
+      "receipt": {
+        "command": "inspect",
+        "diagnostic_output_limit": 4096,
+        "isolation": {
+          "address_space_mib": 1024,
+          "cpu_seconds": 60,
+          "denied_syscalls": [
+            "socket",
+            "socketpair",
+            "connect",
+            "bind",
+            "listen",
+            "accept",
+            "accept4",
+            "sendto",
+            "sendmsg",
+            "sendmmsg",
+            "recvfrom",
+            "recvmsg",
+            "recvmmsg",
+            "execve",
+            "execveat"
+          ],
+          "filesystem": "validated explicit paths; no kernel filesystem jail",
+          "method": "Linux libseccomp default-allow with network and exec syscall denial",
+          "scope": "deterministic CLI process and inherited descendants",
+          "wall_seconds": 60
+        },
+        "operation_receipt_version": "1.1.0",
+        "published_ahif": false,
+        "reason": "output_total_byte_limit",
+        "status": "resource_limit"
+      }
+    }
+  ],
+  "separate_diagnostic_ceiling": 4096,
+  "status": "passed"
+}

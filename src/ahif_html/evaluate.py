@@ -278,7 +278,7 @@ def evaluate(dataset_path, config_path, destination):
                     'inputs': [{'id': page['id'], 'files': {key: sha(safe_read(path)) for key, path in files.items()}} for page, files, _ in inputs],
                     'matching_rule': 'exact_capture_bound_container_reference_one_to_one',
                     'registered_before_execution': True}
-    with fresh(destination) as out:
+    with fresh(destination,output_limit=config['budgets']['max_total_output_bytes']) as out:
         write_json(out / 'registration.json', registration)
         (out / 'pages').mkdir()
         results = []

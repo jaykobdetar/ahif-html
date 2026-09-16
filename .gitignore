@@ -26,3 +26,6 @@ docs/RUNPOD-PLAN.md
 id_rsa
 id_ed25519
 credentials.json
+
+# Historical infrastructure preparation stays local.
+docs/RUNPOD-V2-PLAN.md

@@ -1,7 +1,8 @@
 # Repository publication boundary
 
 The owner explicitly authorized creating and publishing the separate `ahif-html`
-repository after its initial local implementation delivery. Earlier statements
+repository after its initial local implementation delivery, and later authorized updating all
+appropriate repositories after the repairs and Luna comparison. Earlier statements
 that no commit, push or publication had occurred describe that historical
 checkpoint. They are not the current publication instruction.
 
@@ -22,17 +23,20 @@ abstentions remain distinguishable from manual-plan or mock tests.
 
 ## Material retained only locally
 
-- The full `qa/` history, capture/index sidecars, model requests/responses, local
-  execution logs and machine-specific receipt paths.
+- The full `qa/` history and machine-specific receipt paths. Selected **fictional**
+  captures, source maps, visible model requests/responses and failure evidence are
+  copied separately under `provenance/evaluation-20260916/`; publication manifests
+  distinguish exact bytes from explicitly redacted operational fields.
 - Private credentials, SSH keys, host-key databases, deployment controls and
   resource/timer identifiers; local environments, caches and built distributions.
 - The historical approved development configurations
   `examples/model-config.live.forum.json` and
   `examples/model-config.live.reviews.json`.
-- The detailed historical `docs/RUNPOD-PLAN.md`; its public replacement is the
+- Detailed historical `docs/RUNPOD-PLAN.md` and `docs/RUNPOD-V2-PLAN.md`; public replacements are the current evaluation report and
   aggregate [Runpod summary](RUNPOD-SUMMARY.md).
 
-Those files remain excluded even when their underlying capture text is fictional.
+The original private directories remain excluded. The selected fictional evidence
+was reviewed separately for this owner-authorized update.
 Publishing the code does not automatically authorize publishing model transcripts,
 private evidence, source-account mappings or a future capture. The public live
 configuration templates have approval disabled and require an explicit data scope
@@ -60,3 +64,13 @@ those permissions for future source data.
 The pre-edit versions of publication-adjusted delivery documents remain preserved
 under local `qa/publication-preparation/original-docs/`. Documentation updates do
 not rewrite earlier execution receipts.
+
+## Repair and Luna publication
+
+[Current publication evidence](../provenance/evaluation-20260916/README.md) retains
+all scored outcomes, including the first Luna integration failure. New repository
+checks run offline from an allowlisted fresh snapshot. The publication-only runner
+portability revision does not change source interpretation, prompts or scoring;
+frozen historical source snapshots and original receipts remain local. No new paid
+inference or data collection is part of this update. Companion repository changes
+are documentation-only, checked against their starting commits.

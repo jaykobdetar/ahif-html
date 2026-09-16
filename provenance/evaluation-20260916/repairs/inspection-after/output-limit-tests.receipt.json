@@ -1,0 +1,13 @@
+{
+  "command": [
+    "<extractor-workspace>/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_output_publication_limits.py",
+    "-q"
+  ],
+  "exit_code": 0,
+  "environment": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "code_basis": "working 0.2.0 revision",
+  "status": "passed"
+}

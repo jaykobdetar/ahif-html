@@ -4,7 +4,7 @@ import argparse
 import sys
 import time
 from pathlib import Path
-from .common import C, Failure, check_path, fresh, load_json, safe_read, sha, validate, write_json, limits_for
+from .common import C, Failure, check_path, fresh, load_json, safe_read, sha, validate, write_json, limits_for, DIAGNOSTIC_OUTPUT_BYTES
 
 def batch(manifest_path,destination):
     from .executor import extract
@@ -59,7 +59,7 @@ def parser():
         if name=='discover':q.add_argument('--model-config',required=True,type=Path)
         if name=='apply-recipe':q.add_argument('--recipe',required=True,type=Path)
         if name=='correct':q.add_argument('--corrections',required=True,type=Path)
-    q=sub.add_parser('review');q.add_argument('--run',required=True,type=Path);q.add_argument('--out',required=True,type=Path)
+    q=sub.add_parser('review');q.add_argument('--run',required=True,type=Path);q.add_argument('--out',required=True,type=Path);q.add_argument('--limits',type=Path)
     q=sub.add_parser('evaluate');q.add_argument('--dataset',required=True,type=Path);q.add_argument('--config',required=True,type=Path);q.add_argument('--out',required=True,type=Path)
     q=sub.add_parser('batch');q.add_argument('--manifest',required=True,type=Path);q.add_argument('--out',required=True,type=Path)
     sub.add_parser('sandbox-check')
@@ -77,8 +77,8 @@ def main(argv=None):
         if args.command=='inspect':
             from .index import build, Inspector
             value=build(args.capture,metadata,limits)
-            with fresh(args.out) as stage:
-                write_json(stage/'index.json',value);write_json(stage/'inspection.json',Inspector(value).audit())
+            with fresh(args.out,output_limit=caps['output_bytes']) as stage:
+                write_json(stage/'index.json',value);write_json(stage/'inspection.json',Inspector(value,limits).audit())
                 write_json(stage/'isolation.json',isolation)
             result={'status':'complete_execution','index_id':value['index_id'],'indexed_nodes':len(value['nodes']),'indicators':value['indicators'],'coverage':'not_established'}
         elif args.command=='extract':
@@ -88,8 +88,8 @@ def main(argv=None):
             from .executor import verify
             result=verify(args.capture,args.plan,args.run,metadata,limits)
         elif args.command=='review':
-            from .executor import review
-            result=review(args.run,args.out)
+            from .review import review
+            result=review(args.run,args.out,limits)
         elif args.command=='discover':
             from .planner import discover
             result=discover(args.capture,load_json(args.model_config),args.out,metadata,limits)
@@ -114,11 +114,11 @@ def main(argv=None):
         print(C(result).decode())
         return 0 if result.get('status') in ('passed','complete','complete_execution','partial_execution','no_contributions_observed','applied','generated') else 2
     except (Failure,MemoryError) as exc:
-        result={'operation_receipt_version':'1.0.0','status':exc.status if isinstance(exc,Failure) else 'resource_limit','reason':exc.code if isinstance(exc,Failure) else 'worker_memory_limit','command':args.command,'isolation':isolation,'published_ahif':False}
+        result={'operation_receipt_version':'1.1.0','status':exc.status if isinstance(exc,Failure) else 'resource_limit','reason':exc.code if isinstance(exc,Failure) else 'worker_memory_limit','command':args.command,'isolation':isolation,'published_ahif':False,'diagnostic_output_limit':DIAGNOSTIC_OUTPUT_BYTES}
         dest=getattr(args,'out',None)
         if dest and not dest.exists():
             try:
-                with fresh(dest) as stage:write_json(stage/'failed-attempt.json',result)
+                with fresh(dest,output_limit=DIAGNOSTIC_OUTPUT_BYTES) as stage:write_json(stage/'failed-attempt.json',result)
             except Failure:pass
         print(C(result).decode());return 2
 

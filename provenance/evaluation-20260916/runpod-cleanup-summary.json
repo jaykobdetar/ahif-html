@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "kind": "publication_summary_not_new_execution",
+  "original_receipt_sha256": "de0dccc56b49f1627017182bf2242895b63e41530eb5a874b81a1833d41283f4",
+  "deleted_at": "2026-09-16T06:05:46.821742+00:00",
+  "fresh_independent_inventory_matching_pods": 0,
+  "persistent_volumes_created": 0,
+  "network_volumes_created": 0,
+  "cleanup_timer_and_service_removed": true,
+  "dedicated_tunnel_absent": true,
+  "combined_quoted_rate_usd_per_hour": "0.498333",
+  "elapsed_rate_estimate_usd": "0.197666",
+  "invoice_usd": null,
+  "omissions": [
+    "Resource identifiers",
+    "Infrastructure control paths",
+    "SSH details"
+  ]
+}

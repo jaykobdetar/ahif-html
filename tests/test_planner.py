@@ -45,6 +45,17 @@ def fixture(tmp_path):
     return capture, idx, proposal
 
 
+def review_responses(idx, proposal):
+    container = proposal['proposal']['contributions'][0]['container']
+    text = next(node['ref'] for node in idx['nodes'] if node['kind'] == 'text')
+    references = [container, text]
+    return ({'action': 'ready_for_review', 'observations': [{'node': container,
+                'interpretation': 'possible_contribution', 'evidence': references}]},
+            {'action': 'review', 'decision': 'approve', 'issues': [], 'checks': [{
+                'node': container, 'decision': 'supported',
+                'aspects': ['boundary', 'author', 'roles', 'time', 'omissions'], 'evidence': references}]})
+
+
 def test_mock_positive_uses_ordinary_executor(tmp_path):
     capture, idx, proposal = fixture(tmp_path)
     out = tmp_path / 'run'
@@ -114,10 +125,10 @@ def test_reviewer_inspects_before_receiving_plan(tmp_path):
     capture, idx, proposal = fixture(tmp_path)
     cfg = configuration()
     cfg['reviewer'] = True
-    actions = [proposal, {'action': 'tool', 'name': 'inspect_node',
-                         'arguments': {'node_ref': proposal['proposal']['contributions'][0]['container'],
-                                       'depth': 3, 'max_characters': 2000}},
-               {'action': 'ready_for_review'}, {'action': 'review', 'decision': 'approve', 'issues': []}]
+    ready, approval = review_responses(idx, proposal)
+    actions = [proposal, {'action': 'tool', 'name': 'inspect_candidate',
+                         'arguments': {'candidate_ref': proposal['proposal']['contributions'][0]['container']}},
+               ready, approval]
     result = discover(capture, cfg, tmp_path / 'run', {'data_class': 'synthetic'},
                       provider=RecordedProvider(actions, 'mock'))
     assert result['failure'] is None
@@ -131,7 +142,7 @@ def test_reviewer_cannot_skip_independent_inspection(tmp_path):
     cfg = configuration()
     cfg['reviewer'] = True
     result = discover(capture, cfg, tmp_path / 'run', {'data_class': 'synthetic'},
-                      provider=RecordedProvider([proposal, {'action': 'ready_for_review'}], 'mock'))
+                      provider=RecordedProvider([proposal, {'action': 'ready_for_review', 'observations': []}], 'mock'))
     assert result['failure'] == 'reviewer_independent_inspection_missing'
 
 
@@ -187,7 +198,7 @@ def test_refusal_retained_and_distinct_from_success(tmp_path):
 
 
 def test_response_schema_repair_retains_failed_call(tmp_path):
-    capture, _, proposal = fixture(tmp_path)
+    capture, idx, proposal = fixture(tmp_path)
     result = discover(capture, configuration(), tmp_path / 'run', {'data_class': 'synthetic'},
                       provider=RecordedProvider([{'echoed_input': True}, proposal], 'mock'))
     assert result['failure'] is None
@@ -290,9 +301,10 @@ def test_reviewer_discarded_tool_view_is_not_independent_inspection(tmp_path, mo
     capture, _, proposal = fixture(tmp_path)
     cfg = configuration()
     cfg['reviewer'] = True
+    ready, approval = review_responses(build(capture, {'data_class': 'synthetic'}), proposal)
     actions = [proposal, {'action': 'tool', 'name': 'inspect_node',
                          'arguments': {'node_ref': proposal['proposal']['contributions'][0]['container']}},
-               {'action': 'ready_for_review'}, {'action': 'review', 'decision': 'approve', 'issues': []}]
+               ready, approval]
     result = discover(capture, cfg, tmp_path / 'run', {'data_class': 'synthetic'},
                       provider=RecordedProvider(actions, 'mock'))
     assert result['failure'] == 'reviewer_independent_inspection_missing'

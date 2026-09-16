@@ -1,0 +1,14 @@
+{
+  "artifact": "registration.json",
+  "changes": [
+    {
+      "json_pointer": "/shared_budget/budget_ledger",
+      "operation": "replace",
+      "replacement": "publication-redacted:local-budget-ledger"
+    }
+  ],
+  "mode": "publication_derivative",
+  "original_sha256": "2fff9aef43575bd6befdbd0e744106b5ff2c011fca483bd63e41565847b66146",
+  "publication_version": "1.0.0",
+  "published_sha256": "572092b8c726556346140f963ee496d5d622a03777523ad476d24bc257efadec"
+}

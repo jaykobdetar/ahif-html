@@ -1,0 +1,1 @@
+{"budgets":{"max_pages":8,"max_provider_calls":0,"max_total_capture_bytes":8388608,"max_total_output_bytes":67108864,"max_total_seconds":120},"evaluation_version":"1.0.0","mode":"deterministic_plans","replay":true}

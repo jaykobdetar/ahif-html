@@ -1,12 +1,17 @@
-# ahif-html — local prototype 0.1.0
+# ahif-html — extraction prototype 0.2.0
+
+This revision repairs the deterministic evidence gates and adds discovery
+contract/prompt version 1.1.0. See the [repair and evaluation report](docs/REPAIR-0.2.0.md).
+The uploaded 0.1.0 baseline and its initial trial results remain historical;
+the [publication evidence](provenance/evaluation-20260916/README.md) retains the later repair and model-comparison outcomes.
 
 Source-linked saved HTML → **AHIF 0.1.1**. A model may propose selections; ordinary
 code retrieves every source string. A finalized plan replays without a model.
 This is a separate project; [AHIF](https://github.com/jaykobdetar/ahif),
 [AHAS 1.0.4](https://github.com/jaykobdetar/account-history-analyzer), the Reddit CSV
-bridge and old studies remain unchanged. The owner authorized publication of this
-extractor repository. See the [publication boundary](docs/PUBLICATION.md) and
-[selected execution evidence](provenance/initial-delivery/README.md).
+bridge and old studies remain unchanged. See the [publication boundary](docs/PUBLICATION.md),
+[current execution evidence](provenance/evaluation-20260916/README.md), and
+[historical initial-delivery summary](provenance/initial-delivery/README.md).
 
 ## Model-free quickstart
 
@@ -27,14 +32,17 @@ uv sync --frozen --python python3.12
 
 Open `local-runs/forum/review/index.html` locally. Its escaped static source view
 contains no active source HTML or remote resources. Destinations must be **new**;
-choose a new run name when repeating commands. Dependencies need network only
+choose a new run name when repeating commands. Use run paths without unresolved
+`..` segments; normalize such paths before verification. Dependencies need network only
 when not already cached; extraction/replay themselves deny network and exec through
 Linux seccomp. The importable API does not sandbox its embedding process.
 
 The fictional multi-author thread emits body/quote/code/body boundaries and a
 nested reply, excludes a signature and UI, and retains unknown authorship/time.
-The five-page fixture inventory covers four layout families. Agent-authored
-construction truth is explicitly not independent human annotation.
+The original five-page fixture inventory covers four layout families. The new
+[discovery evaluation inventory](examples/discovery-v2/README.md) adds eight
+multi-contribution pages and a frozen matching policy. Agent-authored construction
+truth is explicitly not independent human annotation.
 
 ## Inspect, discover, review, correct, reuse, evaluate
 
@@ -65,7 +73,7 @@ A successful DOM traversal is never an account-completeness claim.
 
 ### Live discovery — separate from replay
 
-The implemented provider is **Ollama**, on the workstation or through an explicitly
+The original provider is **Ollama**, on the workstation or through an explicitly
 approved SSH tunnel to a Runpod instance. Explicit model ID, loopback endpoint,
 context/output/call budgets and per-capture data approval are required. No hosted
 API credentials or paid dependency are required. An already installed model can
@@ -104,11 +112,14 @@ replay. No credentials, real account exports or account mappings ship as example
 
 ## Supported limits and evidence
 
-See [delivery report](docs/ADOPTION-REPORT.md) and the
+See the current [repair report](docs/REPAIR-0.2.0.md) and
+[discovery evaluation design](docs/DISCOVERY-V2-EVALUATION.md). The historical
+[delivery report](docs/ADOPTION-REPORT.md) and the
 [published evidence summary](provenance/initial-delivery/README.md) for executed
 checks and live outcomes. References to `qa/` in historical documentation identify
-local receipts omitted from this repository; full captures, transcripts and
-operational controls are not published. The [changes/open issues](docs/CHANGELOG.md)
+local receipts omitted from this repository. Selected fictional captures, visible
+model actions, outputs and failures now ship in the versioned publication evidence;
+private operational controls remain excluded. The [changes/open issues](docs/CHANGELOG.md)
 record implemented, demonstrated, evaluated, failed and not-run work. Important boundaries:
 
 - Saved HTML and explicitly declared rendered DOM; pinned HTML5 parser and strict
@@ -126,3 +137,34 @@ References: [architecture](docs/ARCHITECTURE.md), [text policy](docs/TEXT-POLICY
 [evaluation](docs/EVALUATION.md), [AHAS boundary](docs/DOWNSTREAM.md),
 [reference provenance](docs/REFERENCE-PROVENANCE.md),
 [dependencies/licenses](docs/DEPENDENCIES.md).
+
+## Optional Luna comparison
+
+The [executed results](docs/LUNA-RESULTS.md) report three live rounds, all failures,
+usage and source-linked replay checks. [Failure analysis](docs/LUNA-FAILURE-ANALYSIS.md)
+separates remaining interpretation errors from mechanical validation.
+
+The separate [Luna experiment protocol](docs/LUNA-COMPARISON.md) describes a
+planner-only comparison on the existing eight fictional development pages.
+Hosted model configuration 1.1.1 explicitly selects OpenAI Responses and
+`gpt-5.6-luna`; the older local Ollama configuration stays version 1.0.0.
+Cloud access requires explicit synthetic capture hashes and a shared spending
+ledger capped at $3. Supply the API key through `OPENAI_API_KEY` or the runner's
+private key-file option; never put it in model JSON, source files or receipts.
+The protocol is not itself an executed result. Original trials remain available
+under their original designations.
+
+See [the unapproved configuration template](examples/model-config.openai.example.json).
+For the shipped fictional corpus and published historical baseline:
+
+```sh
+.venv/bin/python scripts/run_luna_trial.py prepare --config /absolute/approved-config.json --out /absolute/fresh-trial
+.venv/bin/python scripts/run_luna_trial.py check --run /absolute/fresh-trial
+.venv/bin/python scripts/run_luna_trial.py run --run /absolute/fresh-trial --key-file /absolute/private-key-file
+```
+
+Preparation uses the published Qwen baseline and first Luna integration-failure
+history under `provenance/evaluation-20260916/`. Explicit `--baseline` and
+`--integration-history` directories can select other retained copies. Publication
+redactions have separate manifests and never replace original receipt hashes.
+No model calls occur during preparation or ordinary tests.

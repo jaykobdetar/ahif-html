@@ -1,0 +1,266 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at_utc": "2026-09-16T11:27:38.508168+00:00",
+  "purpose": "Documentation-only companion links for extractor 0.2.0 repairs and Luna development diagnostic",
+  "status": "passed",
+  "repositories": [
+    {
+      "repository": "ahif",
+      "base_commit": "d6eb6239f40f255f599b17ab435b4de74942ee8e",
+      "head_unchanged": true,
+      "tracked_file_count": 155,
+      "changed_paths": [
+        "README.md"
+      ],
+      "changed_files": [
+        {
+          "path": "README.md",
+          "before_sha256": "4f981bc29ddf45d1a43e1694570c6eeab8b29ed5715f4f74ee109d436448e643",
+          "after_sha256": "4fb4826e07db9f33b567d17efba90a9e85fc928dcbc4fdfa7a5812c2bf9f669b"
+        }
+      ],
+      "unchanged_tracked_file_count": 154,
+      "unchanged_inventory_sha256": "2bf0b27fa4ac78e78f3db7baa15f9a82b0d9f7670b7813b85a1d4196b70abb14",
+      "all_other_tracked_bytes_equal_base": true,
+      "diff_sha256": "37428d1f20bcb1c818b876295f0e469b16e0850343cf184c9d4e9ee92c974076",
+      "git_diff_check_exit_code": 0,
+      "staged_changes": false,
+      "local_link_checks": [
+        {
+          "document": "README.md",
+          "target": "docs/BRIDGE.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/EXPORT_OBSERVATION.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/SPEC.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/FIELDS.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/schemas/record.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/schemas/manifest.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/schemas/account.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/schemas/ahif.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/ADOPTION.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/CHANGES.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/REVIEW_MATRIX.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/AHAS_COMPATIBILITY.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/examples",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/ahif/0.1.1/fixtures/negative-cases.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "qa/standalone-verification.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "qa/standalone-tests.log",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/EXPORT_OBSERVATION.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/EXPORT_OBSERVATION_DECISION.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/EXPORT_OBSERVATION_REPORT.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/BRIDGE.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "profiles/reddit-export-csv/1.0.0/README.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "profiles/ahas-conservative/1.0.0/README.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "profiles/ahas-conservative/1.0.0/receipt.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "docs/BRIDGE_REPORT.md",
+          "status": "exists"
+        },
+        {
+          "document": "README.md",
+          "target": "qa/source-inventory.json",
+          "status": "exists"
+        }
+      ]
+    },
+    {
+      "repository": "account-history-analyzer",
+      "base_commit": "64ae7a5a7c99309f5428dd0424f728068b22bf64",
+      "head_unchanged": true,
+      "tracked_file_count": 2223,
+      "changed_paths": [
+        "docs/AHIF.md"
+      ],
+      "changed_files": [
+        {
+          "path": "docs/AHIF.md",
+          "before_sha256": "6efce256a9a2a9359de449eb8ea248a36244b70a298f952a3303a510ad70c482",
+          "after_sha256": "dd120c189cbd6a0dc1a3755ddca928cfc9da8a8e69428f7cd536a2fbdd0c0dc5"
+        }
+      ],
+      "unchanged_tracked_file_count": 2222,
+      "unchanged_inventory_sha256": "428c5fe6eeee187c825137a0ba70ae926cf2bac9fbf2fe18adafdd40782fe8f6",
+      "all_other_tracked_bytes_equal_base": true,
+      "diff_sha256": "8cee3ff7128048bb2597b29ef452a8c8539af39024047cd4ba9c8607d24ec2d8",
+      "git_diff_check_exit_code": 0,
+      "staged_changes": false,
+      "local_link_checks": [
+        {
+          "document": "docs/AHIF.md",
+          "target": "EXPORT_OBSERVATION.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/SPEC.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/FIELDS.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/schemas/ahif.schema.json",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/ADOPTION.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/CHANGES.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/REVIEW_MATRIX.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/0.1.1/AHAS_COMPATIBILITY.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "ahif/history/0.1.0/README.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "../provenance/ahif-export-observation/README.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "../provenance/ahif-adoption/README.md",
+          "status": "exists"
+        },
+        {
+          "document": "docs/AHIF.md",
+          "target": "EXPORT_OBSERVATION.md",
+          "status": "exists"
+        }
+      ]
+    }
+  ],
+  "commits_created": false,
+  "pushes_performed": false,
+  "tests_run": false,
+  "test_scope_reason": "Documentation-only additions; contribution guidance calls for Markdown navigation and preserved file identities.",
+  "added_cross_repository_links": [
+    {
+      "url": "https://github.com/jaykobdetar/ahif-html/blob/main/docs/REPAIR-0.2.0.md",
+      "local_target": "docs/REPAIR-0.2.0.md",
+      "target_sha256": "8fb8c7f8c861b5394422024bff6bf7f6fbcd8778d7ea927c4d38b7e2a8a77654",
+      "status": "target_exists_in_extractor_working_tree"
+    },
+    {
+      "url": "https://github.com/jaykobdetar/ahif-html/blob/main/docs/LUNA-RESULTS.md",
+      "local_target": "docs/LUNA-RESULTS.md",
+      "target_sha256": "863510173785738c83ba371269b25466d6672e0cf847118ef37d0ac50cedb2b9",
+      "status": "target_exists_in_extractor_working_tree"
+    }
+  ],
+  "remote_link_check": "Not fetched; links target the extractor documents prepared for the parent publication task.",
+  "existing_ahas_readme_navigation": {
+    "target": "docs/AHIF.md#saved-html-extraction",
+    "status": "resolves",
+    "readme_modified": false
+  },
+  "protected_scope": "Every tracked file other than the two named documentation pages matches its starting HEAD, including engines, schemas, numerical resources, bridge profiles, studies and historical receipts."
+}

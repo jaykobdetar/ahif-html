@@ -34,6 +34,14 @@ PROFILE={'id':'html-structural-text','version':'1.0.0','parser':'html5lib','pars
  'hidden_policy':'HTML hidden and aria-hidden=true excluded with explicit reasons; CSS visibility not inferred',
  'limits':DEFAULT_LIMITS}
 PROFILE_SHA=sha(C(PROFILE))
+# Validation semantics are versioned separately from the unchanged parser/text
+# profile. Old plans remain readable; repaired gates apply to every new execution.
+GATE_CONTRACT={'id':'ahif-html-evidence-gates','version':'1.1.0',
+ 'protected_roles':'quote/code ancestry cannot become body/title through narrower selections',
+ 'textless_actions':'positive source-derived identity, relationship or registered state evidence required',
+ 'publication':'all accepted files counted before atomic publication'}
+GATE_SHA=sha(C(GATE_CONTRACT))
+DIAGNOSTIC_OUTPUT_BYTES=4096
 
 def check_path(path):
     p=Path(path).absolute()
@@ -71,14 +79,21 @@ def limits_for(overrides=None):
         raise Failure('resource_limits_invalid')
     return value
 
+def directory_bytes(directory):
+    return sum(p.stat().st_size for p in Path(directory).rglob('*') if p.is_file())
+
 @contextmanager
-def fresh(destination):
+def fresh(destination, *, output_limit=None):
+    if output_limit is not None and (type(output_limit) is not int or output_limit<1):
+        raise Failure('output_limit_invalid')
     dest=check_path(destination)
     if dest.exists() or dest==Path.cwd() or dest in Path.cwd().parents:raise Failure('output_must_be_fresh_dedicated_directory')
     dest.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
     temp=Path(tempfile.mkdtemp(prefix='.ahif-html-',dir=dest.parent))
     try:
         yield temp
+        if output_limit is not None and directory_bytes(temp)>output_limit:
+            raise Failure('output_total_byte_limit','resource_limit')
         if dest.exists():raise Failure('output_already_exists')
         temp.rename(dest)
     finally:

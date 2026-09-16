@@ -24,6 +24,19 @@ class NoRedirect(HTTPRedirectHandler):
 
 
 def validate_config(config):
+    if isinstance(config, dict) and config.get('version') in ('1.1.0', '1.1.1'):
+        # An explicit hosted contract; never disguise a cloud endpoint as Ollama.
+        validate('model-config-' + config['version'], config)
+        from .common import check_path
+        ledger = Path(config['openai']['budget_ledger'])
+        if not ledger.is_absolute():
+            raise Failure('provider_budget_ledger_must_be_absolute')
+        check_path(ledger)
+        if not config['data_approval']['approved'] or not config['data_approval']['capture_sha256']:
+            raise Failure('provider_data_approval_missing')
+        if config['budgets']['max_output_tokens_per_call'] > config['budgets']['max_output_tokens_total']:
+            raise Failure('provider_output_budget_invalid')
+        return config
     validate('model-config', config)
     if config['mode'] == 'live':
         try:
@@ -127,7 +140,7 @@ class OllamaProvider:
         remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise Failure('provider_deadline_limit', 'resource_limit')
-        grammar = schema('planner-response')
+        grammar = schema('planner-response-1.1.0')
         proposal = next(v for v in grammar['oneOf'] if v['properties']['action']['enum'] == ['propose'])
         contract = schema('plan')['properties']
         for name in ('contributions', 'rejected', 'unresolved'):
@@ -214,6 +227,9 @@ class RecordedProvider:
 
 def make_provider(config):
     validate_config(config)
+    if config['version'] in ('1.1.0', '1.1.1'):
+        from .openai_provider import OpenAIProvider
+        return OpenAIProvider(config)
     if config['mode'] == 'live':
         return OllamaProvider(config)
     value = load_json(config['responses_file'], config['budgets']['max_recording_bytes'])

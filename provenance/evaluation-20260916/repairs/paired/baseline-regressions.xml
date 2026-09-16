@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="59" skipped="0" tests="67" time="2.750" timestamp="2026-09-16T01:25:47.925960-04:00" hostname="jaykob-MS-7B93"><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-body-blockquote]" time="0.131"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'body', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-body-pre]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'body', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-body-code]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'body', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-title-blockquote]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'title', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-title-pre]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'title', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-element-title-code]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'title', selection = 'element', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-body-blockquote]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'body', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-body-pre]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'body', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-body-code]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'body', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-title-blockquote]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'title', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-title-pre]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'title', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[0-text-title-code]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'title', selection = 'text', depth = 0
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-body-blockquote]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'body', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-body-pre]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'body', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-body-code]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'body', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-title-blockquote]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'title', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-title-pre]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'title', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-element-title-code]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'title', selection = 'element', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-body-blockquote]" time="0.025"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'body', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-body-pre]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'body', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-body-code]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'body', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-title-blockquote]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote', role = 'title', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-title-pre]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre', role = 'title', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_protected_ancestor_cannot_be_relabeled_as_body_or_title[3-text-title-code]" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code', role = 'title', selection = 'text', depth = 3
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    @pytest.mark.parametrize('role', ['body', 'title'])
+    @pytest.mark.parametrize('selection', ['element', 'text'])
+    @pytest.mark.parametrize('depth', [0, 3])
+    def test_protected_ancestor_cannot_be_relabeled_as_body_or_title(tmp_path, tag, role, selection, depth):
+        content = '&lt;span id="selected"&gt;Fictional quoted wording.&lt;/span&gt;'
+        for _ in range(depth):
+            content = '&lt;span&gt;' + content + '&lt;/span&gt;'
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;' + content + '&lt;/' + tag + '&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        if selection == 'text':
+            chosen = text_node(evidence, chosen)
+        plan = plan_for(evidence, [contribution(root, [part(chosen, role)])])
+        write_json(tmp_path / 'attempted-plan.json', plan)
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:86: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_moving_contribution_container_inside_protected_region_does_not_bypass_gate[blockquote]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_moving_contribution_container_inside_protected_region_does_not_bypass_gate(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;' + tag + '&gt;&lt;section id="inner"&gt;&lt;span id="selected"&gt;Nested quotation.&lt;/span&gt;&lt;/section&gt;&lt;/' + tag + '&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'inner'), [part(element(evidence, 'selected'))])])
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:96: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_moving_contribution_container_inside_protected_region_does_not_bypass_gate[pre]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_moving_contribution_container_inside_protected_region_does_not_bypass_gate(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;' + tag + '&gt;&lt;section id="inner"&gt;&lt;span id="selected"&gt;Nested quotation.&lt;/span&gt;&lt;/section&gt;&lt;/' + tag + '&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'inner'), [part(element(evidence, 'selected'))])])
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:96: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_moving_contribution_container_inside_protected_region_does_not_bypass_gate[code]" time="0.005"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_moving_contribution_container_inside_protected_region_does_not_bypass_gate(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;' + tag + '&gt;&lt;section id="inner"&gt;&lt;span id="selected"&gt;Nested quotation.&lt;/span&gt;&lt;/section&gt;&lt;/' + tag + '&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'inner'), [part(element(evidence, 'selected'))])])
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:96: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[manual]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'manual'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[model]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'model'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[mock]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'mock'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[recorded]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'recorded'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[recipe]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'recipe'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_plan_origin_never_bypasses_semantic_gate[correction]" time="0.004"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+origin = 'correction'
+
+    @pytest.mark.parametrize('origin', ['manual', 'model', 'mock', 'recorded', 'recipe', 'correction'])
+    def test_plan_origin_never_bypasses_semantic_gate(tmp_path, origin):
+        _, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quote.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        plan = plan_for(evidence, [contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])])
+        plan['origin']['kind'] = origin
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:105: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_quote_is_not_the_grounded_header_actors_own_body" time="0.026"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_quote_is_not_the_grounded_header_actors_own_body(tmp_path):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;header&gt;&lt;span id="author"&gt;Fictional Delta&lt;/span&gt;&lt;/header&gt;'
+                                  '&lt;blockquote&gt;&lt;span id="selected"&gt;Another persons wording.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        root, chosen, author = [element(evidence, name) for name in ('outer', 'selected', 'author')]
+        selected = contribution(root, [part(chosen)])
+        selected['parts'][0]['attribution'] = 'record_actor'
+        selected['author'] = {'identity': None, 'label': {'node': text_node(evidence, author), 'kind': 'text'}, 'evidence': [author]}
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:116: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_valid_body_quote_code_body_and_nested_reply_replay" time="0.089" /><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[empty]" time="0.030" /><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[unknown_relation]" time="0.049"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'unknown_relation'
+
+    @pytest.mark.parametrize('case', ['empty', 'unknown_relation', 'empty_native', 'blank_native', 'empty_uri', 'unfounded_state'])
+    def test_empty_container_requires_actual_positive_evidence(tmp_path, case):
+        capture, _, plan = empty_case(tmp_path, case)
+        result, records, run = run_serialized(tmp_path, capture, plan)
+&gt;       assert result['record_observations'] == result['distinct_record_keys'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:164: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[empty_native]" time="0.034"><failure message="AssertionError: assert 'unsupported' == 'no_evidence'&#10;  &#10;  - no_evidence&#10;  + unsupported">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'empty_native'
+
+    @pytest.mark.parametrize('case', ['empty', 'unknown_relation', 'empty_native', 'blank_native', 'empty_uri', 'unfounded_state'])
+    def test_empty_container_requires_actual_positive_evidence(tmp_path, case):
+        capture, _, plan = empty_case(tmp_path, case)
+        result, records, run = run_serialized(tmp_path, capture, plan)
+        assert result['record_observations'] == result['distinct_record_keys'] == 0
+        assert result['unsupported_contributions'] == 1
+        assert result['status'] != 'complete_execution'
+        assert records == []
+        assert load_json(run / 'evidence/finalized-plan.json') == plan
+        decisions = [json.loads(v) for v in (run / 'evidence/decisions.jsonl').read_text().splitlines()]
+&gt;       assert decisions[0]['status'] == 'no_evidence'
+E       AssertionError: assert 'unsupported' == 'no_evidence'
+E         
+E         - no_evidence
+E         + unsupported
+
+tests/test_revision_semantic_gates.py:170: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[blank_native]" time="0.048"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'blank_native'
+
+    @pytest.mark.parametrize('case', ['empty', 'unknown_relation', 'empty_native', 'blank_native', 'empty_uri', 'unfounded_state'])
+    def test_empty_container_requires_actual_positive_evidence(tmp_path, case):
+        capture, _, plan = empty_case(tmp_path, case)
+        result, records, run = run_serialized(tmp_path, capture, plan)
+&gt;       assert result['record_observations'] == result['distinct_record_keys'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:164: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[empty_uri]" time="0.047"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'empty_uri'
+
+    @pytest.mark.parametrize('case', ['empty', 'unknown_relation', 'empty_native', 'blank_native', 'empty_uri', 'unfounded_state'])
+    def test_empty_container_requires_actual_positive_evidence(tmp_path, case):
+        capture, _, plan = empty_case(tmp_path, case)
+        result, records, run = run_serialized(tmp_path, capture, plan)
+&gt;       assert result['record_observations'] == result['distinct_record_keys'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:164: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_container_requires_actual_positive_evidence[unfounded_state]" time="0.047"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'unfounded_state'
+
+    @pytest.mark.parametrize('case', ['empty', 'unknown_relation', 'empty_native', 'blank_native', 'empty_uri', 'unfounded_state'])
+    def test_empty_container_requires_actual_positive_evidence(tmp_path, case):
+        capture, _, plan = empty_case(tmp_path, case)
+        result, records, run = run_serialized(tmp_path, capture, plan)
+&gt;       assert result['record_observations'] == result['distinct_record_keys'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:164: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[native_id]" time="0.048" /><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[identity_uri]" time="0.049" /><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[native_relation]" time="0.051" /><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[uri_relation]" time="0.051" /><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[state_attribute]" time="0.048" /><testcase classname="tests.test_revision_semantic_gates" name="test_grounded_textless_action_still_emits[state_text]" time="0.048" /><testcase classname="tests.test_revision_semantic_gates" name="test_captured_state_inside_quoted_region_cannot_create_outer_event[blockquote]" time="0.048"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'blockquote'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_captured_state_inside_quoted_region_cannot_create_outer_event(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;&lt;span id="state" data-state="removed"&gt;[removed]&lt;/span&gt;&lt;/' + tag + '&gt;&lt;/article&gt;')
+        selected = contribution(element(evidence, 'outer'))
+        selected['state'] = {'value': 'removed', 'evidence': [element(evidence, 'state')]}
+        result, records, _ = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:203: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_captured_state_inside_quoted_region_cannot_create_outer_event[pre]" time="0.048"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'pre'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_captured_state_inside_quoted_region_cannot_create_outer_event(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;&lt;span id="state" data-state="removed"&gt;[removed]&lt;/span&gt;&lt;/' + tag + '&gt;&lt;/article&gt;')
+        selected = contribution(element(evidence, 'outer'))
+        selected['state'] = {'value': 'removed', 'evidence': [element(evidence, 'state')]}
+        result, records, _ = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:203: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_captured_state_inside_quoted_region_cannot_create_outer_event[code]" time="0.048"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+tag = 'code'
+
+    @pytest.mark.parametrize('tag', ['blockquote', 'pre', 'code'])
+    def test_captured_state_inside_quoted_region_cannot_create_outer_event(tmp_path, tag):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;' + tag + '&gt;&lt;span id="state" data-state="removed"&gt;[removed]&lt;/span&gt;&lt;/' + tag + '&gt;&lt;/article&gt;')
+        selected = contribution(element(evidence, 'outer'))
+        selected['state'] = {'value': 'removed', 'evidence': [element(evidence, 'state')]}
+        result, records, _ = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:203: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_positive_record_survives_independent_no_evidence_omission" time="0.071"><failure message="assert 2 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_positive_record_survives_independent_no_evidence_omission(tmp_path):
+        capture, evidence = setup(tmp_path, '&lt;div id="empty"&gt;&lt;/div&gt;&lt;article id="real"&gt;&lt;p id="body"&gt;Usable with unknown metadata.&lt;/p&gt;&lt;/article&gt;')
+        empty = contribution(element(evidence, 'empty'))
+        empty['relations'] = [{'type': 'reply_to', 'target': None, 'kind': 'unknown', 'evidence': [empty['container']]}]
+        real = contribution(element(evidence, 'real'), [part(element(evidence, 'body'))])
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [empty, real]))
+&gt;       assert result['record_observations'] == result['unsupported_contributions'] == 1
+E       assert 2 == 0
+
+tests/test_revision_semantic_gates.py:213: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_recipe_and_correction_share_protected_ancestor_gate" time="0.005"><failure message="Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_recipe_and_correction_share_protected_ancestor_gate(tmp_path):
+        from ahif_html.recipes import instantiate, correct
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote id="quote"&gt;&lt;span id="selected"&gt;Quoted.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        root, chosen = element(evidence, 'outer'), element(evidence, 'selected')
+        template = contribution('$container', [part('$body')])
+        recipe = {'recipe_version': '1.0.0', 'recipe_id': 'reconstructed-quote-probe', 'profile_sha256': PROFILE_SHA,
+                  'assumptions': ['One fictional article.'], 'containers': {'selector': {'tag': 'article'}, 'minimum': 1, 'maximum': 1},
+                  'bindings': [{'name': '$body', 'selector': {'tag': 'span'}, 'kind': 'element'}], 'contribution_template': template}
+&gt;       with pytest.raises(Failure, match='structural_quote_or_code_ancestor_forbids_body_title'):
+E       Failed: DID NOT RAISE &lt;class 'ahif_html.common.Failure'&gt;
+
+tests/test_revision_semantic_gates.py:227: Failed</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_mock_discovery_uses_same_protected_ancestor_gate" time="0.032"><failure message="AssertionError: assert None == 'structural_quote_or_code_ancestor_forbids_body_title'">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_mock_discovery_uses_same_protected_ancestor_gate(tmp_path):
+        from ahif_html.planner import discover
+        from ahif_html.provider import RecordedProvider
+        from test_planner import configuration
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;blockquote&gt;&lt;span id="selected"&gt;Quoted.&lt;/span&gt;&lt;/blockquote&gt;&lt;/article&gt;')
+        selected = contribution(element(evidence, 'outer'), [part(element(evidence, 'selected'))])
+        proposal = {'action': 'propose', 'proposal': {'contributions': [selected], 'rejected': [], 'unresolved': []}}
+        cfg = configuration(); cfg['budgets']['max_repairs'] = 0
+        result = discover(capture, cfg, tmp_path / 'discovery', META, provider=RecordedProvider([proposal], 'mock'))
+&gt;       assert result['failure'] == 'structural_quote_or_code_ancestor_forbids_body_title'
+E       AssertionError: assert None == 'structural_quote_or_code_ancestor_forbids_body_title'
+
+tests/test_revision_semantic_gates.py:246: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_or_fully_excluded_protected_regions_do_not_discard_unquoted_text" time="0.007"><failure message="ahif_html.common.Failure: structural_quote_or_code_boundary_required">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_empty_or_fully_excluded_protected_regions_do_not_discard_unquoted_text(tmp_path):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;div id="body"&gt;Before.'
+                                  '&lt;blockquote&gt;&lt;/blockquote&gt;&lt;code&gt;&lt;/code&gt;&lt;pre&gt;&lt;/pre&gt;After.&lt;/div&gt;&lt;/article&gt;')
+        chosen = contribution(element(evidence, 'outer'), [part(element(evidence, 'body'))])
+&gt;       result, records, _ = run_serialized(tmp_path, capture, plan_for(evidence, [chosen]))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_revision_semantic_gates.py:255: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_revision_semantic_gates.py:62: in run_serialized
+    result = extract(capture, plan_path, run, metadata)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<baseline-checkout>/src/ahif_html/executor.py:495: in extract
+    return execute_index(evidence, plan, destination, limits=limits)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<baseline-checkout>/src/ahif_html/executor.py:469: in execute_index
+    files, result, grounding = materialize(index, plan, limits)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<baseline-checkout>/src/ahif_html/executor.py:399: in materialize
+    plan = validate_plan(index, plan)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+index = {'capture': {'byte_length': 128, 'decoding': {'encoding': 'utf-8', 'errors': 'strict', 'evidence': 'utf8_default', 'ex...256:3b8b18a41b88e5a3e4b1b85e4a96d998adf0ef6d36083ec13085245e198fe7a9', 'index_version': '1.0.0', 'indicators': [], ...}
+plan = {'ancestry': [], 'capture_sha256': 'dbe4c574111b18869cdfaf7b5ccdffbd36b3b58458e768edabe8569b2bf649e8', 'contributions'...4', 'created': None, ...}], 'index_id': 'sha256:3b8b18a41b88e5a3e4b1b85e4a96d998adf0ef6d36083ec13085245e198fe7a9', ...}
+
+    def validate_plan(index,plan):
+        validate('plan',plan)
+        if index.get('index_id')!=bound('index',{k:v for k,v in index.items() if k!='index_id'}):raise Failure('index_integrity_mismatch')
+        if plan['capture_sha256']!=index['capture']['sha256'] or plan['index_id']!=index['index_id']:raise Failure('plan_capture_index_mismatch')
+        lookup=by_ref(index)
+        def exists(ref):
+            if ref not in lookup:raise Failure('unknown_node_reference')
+            return lookup[ref]
+        def evidence(refs,scope):
+            if not refs:raise Failure('semantic_evidence_required')
+            for r in refs:
+                if r not in scope:raise Failure('evidence_outside_container')
+                if exists(r)['flags'] or exists(r)['kind']=='comment':raise Failure('unsupported_evidence_region')
+        def value(v,scope):
+            if v is None:return
+            if v['node'] not in scope:raise Failure('field_outside_container')
+            read_value(index,v)
+        used=[];containers=set()
+        for c in plan['contributions']:
+            root=exists(c['container'])
+            if root['kind']!='element' or root['flags']:raise Failure('contribution_container_invalid')
+            if c['container'] in containers:raise Failure('duplicate_contribution_container')
+            containers.add(c['container']); scope={n['ref'] for n in descendants(index,c['container'])}
+            evidence(c['evidence'],scope)
+            identity=c['identity']
+            if identity:
+                if 'start' in identity['source'] or 'end' in identity['source']:raise Failure('identity_slice_unsupported')
+                value(identity['source'],scope);evidence(identity['evidence'],scope)
+                if identity['kind']=='native':
+                    if identity['basis']!='documented_native' or identity['source'].get('attribute') not in PROFILE['native_attributes'] or not index['capture']['metadata']['source_url']:raise Failure('native_identity_unsupported')
+                elif identity['basis']!='identity_link' or identity['source'].get('attribute')!='href':raise Failure('identity_uri_unsupported')
+            if c['author']:
+                a=c['author'];evidence(a['evidence'],scope);value(a['label'],scope)
+                if a['identity']:
+                    if 'start' in a['identity']['source'] or 'end' in a['identity']['source']:raise Failure('identity_slice_unsupported')
+                    value(a['identity']['source'],scope)
+                    if a['identity']['kind']=='native':raise Failure('native_actor_identity_unsupported')
+                    if a['identity']['kind']=='uri' and (a['identity']['basis']!='identity_link' or a['identity']['source'].get('attribute')!='href'):raise Failure('actor_uri_unsupported')
+                    if a['identity']['kind']=='handle' and a['identity']['basis']!='source_label':raise Failure('actor_handle_basis_invalid')
+            value(c['created'],scope);value(c['updated'],scope)
+            excluded=set()
+            for x in c['excluded']:
+                if x['node'] not in scope or x['node']==c['container']:raise Failure('exclusion_outside_container')
+                excluded.add(x['node'])
+            for p in c['parts']:
+                if p['root'] not in scope or exists(p['root'])['kind'] not in ('element','text'):raise Failure('part_outside_container')
+                if exists(p['root'])['flags']:raise Failure('unsupported_part_region')
+                evidence(p['evidence'],scope)
+                globally_excluded={n['ref'] for x in excluded for n in descendants(index,x)}
+                if p['root'] in globally_excluded:raise Failure('part_root_globally_excluded')
+                part_scope={n['ref'] for n in descendants(index,p['root'])}
+                for x in p['exclude']:
+                    if x not in part_scope or x==p['root']:raise Failure('part_exclusion_outside_root')
+                if p['role'] in ('body','title'):
+                    blocked={n['ref'] for x in (set(p['exclude'])|excluded) for n in descendants(index,x)}
+                    boundaries={n['ref'] for n in descendants(index,p['root']) if n['tag'] in ('blockquote','pre','code')}
+&gt;                   if boundaries-blocked:raise Failure('structural_quote_or_code_boundary_required')
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ahif_html.common.Failure: structural_quote_or_code_boundary_required
+
+<baseline-checkout>/src/ahif_html/plans.py:64: Failure</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unresolved_native_relation_does_not_count_as_positive_evidence[data-parent-post-id-]" time="0.058"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+attribute = 'data-parent-post-id', value = ''
+
+    @pytest.mark.parametrize('attribute,value', [('data-parent-post-id', ''), ('data-parent-post-id', ' '), ('data-parent-id', 'unsupported-scope')])
+    def test_unresolved_native_relation_does_not_count_as_positive_evidence(tmp_path, attribute, value):
+        capture, evidence = setup(tmp_path, '&lt;article id="action" ' + attribute + '="' + value + '"&gt;&lt;/article&gt;')
+        root = element(evidence, 'action'); selected = contribution(root)
+        selected['relations'] = [{'type': 'reply_to', 'kind': 'native', 'evidence': [root],
+                                  'target': {'node': root, 'kind': 'attribute', 'attribute': attribute}}]
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:267: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unresolved_native_relation_does_not_count_as_positive_evidence[data-parent-post-id- ]" time="0.049"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+attribute = 'data-parent-post-id', value = ' '
+
+    @pytest.mark.parametrize('attribute,value', [('data-parent-post-id', ''), ('data-parent-post-id', ' '), ('data-parent-id', 'unsupported-scope')])
+    def test_unresolved_native_relation_does_not_count_as_positive_evidence(tmp_path, attribute, value):
+        capture, evidence = setup(tmp_path, '&lt;article id="action" ' + attribute + '="' + value + '"&gt;&lt;/article&gt;')
+        root = element(evidence, 'action'); selected = contribution(root)
+        selected['relations'] = [{'type': 'reply_to', 'kind': 'native', 'evidence': [root],
+                                  'target': {'node': root, 'kind': 'attribute', 'attribute': attribute}}]
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:267: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unresolved_native_relation_does_not_count_as_positive_evidence[data-parent-id-unsupported-scope]" time="0.049"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+attribute = 'data-parent-id', value = 'unsupported-scope'
+
+    @pytest.mark.parametrize('attribute,value', [('data-parent-post-id', ''), ('data-parent-post-id', ' '), ('data-parent-id', 'unsupported-scope')])
+    def test_unresolved_native_relation_does_not_count_as_positive_evidence(tmp_path, attribute, value):
+        capture, evidence = setup(tmp_path, '&lt;article id="action" ' + attribute + '="' + value + '"&gt;&lt;/article&gt;')
+        root = element(evidence, 'action'); selected = contribution(root)
+        selected['relations'] = [{'type': 'reply_to', 'kind': 'native', 'evidence': [root],
+                                  'target': {'node': root, 'kind': 'attribute', 'attribute': attribute}}]
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:267: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_relative_identity_without_base_is_not_positive_textless_evidence[identity]" time="0.050"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+field = 'identity'
+
+    @pytest.mark.parametrize('field', ['identity', 'relation'])
+    def test_relative_identity_without_base_is_not_positive_textless_evidence(tmp_path, field):
+        capture, _ = setup(tmp_path, '&lt;article id="action"&gt;&lt;a id="link" href="posts/7"&gt;&lt;/a&gt;&lt;/article&gt;')
+        metadata = {'data_class': 'synthetic'}
+        evidence = index.build(capture, metadata)
+        root = element(evidence, 'action'); selected = contribution(root)
+        ref = {'node': element(evidence, 'link'), 'kind': 'attribute', 'attribute': 'href'}
+        if field == 'identity':
+            selected['identity'] = {'kind': 'uri', 'basis': 'identity_link', 'source': ref, 'evidence': [root]}
+        else:
+            selected['relations'] = [{'type': 'reposts', 'kind': 'uri', 'target': ref, 'evidence': [root]}]
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [selected]), metadata)
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:284: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_relative_identity_without_base_is_not_positive_textless_evidence[relation]" time="0.051"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+field = 'relation'
+
+    @pytest.mark.parametrize('field', ['identity', 'relation'])
+    def test_relative_identity_without_base_is_not_positive_textless_evidence(tmp_path, field):
+        capture, _ = setup(tmp_path, '&lt;article id="action"&gt;&lt;a id="link" href="posts/7"&gt;&lt;/a&gt;&lt;/article&gt;')
+        metadata = {'data_class': 'synthetic'}
+        evidence = index.build(capture, metadata)
+        root = element(evidence, 'action'); selected = contribution(root)
+        ref = {'node': element(evidence, 'link'), 'kind': 'attribute', 'attribute': 'href'}
+        if field == 'identity':
+            selected['identity'] = {'kind': 'uri', 'basis': 'identity_link', 'source': ref, 'evidence': [root]}
+        else:
+            selected['relations'] = [{'type': 'reposts', 'kind': 'uri', 'target': ref, 'evidence': [root]}]
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [selected]), metadata)
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:284: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unowned_or_unregistered_state_evidence_does_not_create_event[wrong_attribute]" time="0.047"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'wrong_attribute'
+
+    @pytest.mark.parametrize('case', ['wrong_attribute', 'generic_prose', 'excluded', 'nested_owner'])
+    def test_unowned_or_unregistered_state_evidence_does_not_create_event(tmp_path, case):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;section id="state" data-state="deleted"&gt;'
+                                  'Some discussion mentioning removed content.&lt;/section&gt;&lt;/article&gt;')
+        root, marker = element(evidence, 'outer'), element(evidence, 'state')
+        selected = contribution(root)
+        selected['state'] = {'value': 'removed', 'evidence': [marker]}
+        contributions = [selected]
+        if case == 'generic_prose':
+            selected['state']['evidence'] = [text_node(evidence, marker)]
+        elif case == 'excluded':
+            selected['state']['value'] = 'deleted'
+            selected['excluded'] = [{'node': marker, 'reason': 'interface'}]
+        elif case == 'nested_owner':
+            selected['state']['value'] = 'deleted'
+            nested = contribution(marker)
+            nested['state'] = {'value': 'deleted', 'evidence': [marker]}
+            contributions.append(nested)
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, contributions))
+&gt;       assert result['record_observations'] == (1 if case == 'nested_owner' else 0)
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:308: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unowned_or_unregistered_state_evidence_does_not_create_event[generic_prose]" time="0.048"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'generic_prose'
+
+    @pytest.mark.parametrize('case', ['wrong_attribute', 'generic_prose', 'excluded', 'nested_owner'])
+    def test_unowned_or_unregistered_state_evidence_does_not_create_event(tmp_path, case):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;section id="state" data-state="deleted"&gt;'
+                                  'Some discussion mentioning removed content.&lt;/section&gt;&lt;/article&gt;')
+        root, marker = element(evidence, 'outer'), element(evidence, 'state')
+        selected = contribution(root)
+        selected['state'] = {'value': 'removed', 'evidence': [marker]}
+        contributions = [selected]
+        if case == 'generic_prose':
+            selected['state']['evidence'] = [text_node(evidence, marker)]
+        elif case == 'excluded':
+            selected['state']['value'] = 'deleted'
+            selected['excluded'] = [{'node': marker, 'reason': 'interface'}]
+        elif case == 'nested_owner':
+            selected['state']['value'] = 'deleted'
+            nested = contribution(marker)
+            nested['state'] = {'value': 'deleted', 'evidence': [marker]}
+            contributions.append(nested)
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, contributions))
+&gt;       assert result['record_observations'] == (1 if case == 'nested_owner' else 0)
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:308: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unowned_or_unregistered_state_evidence_does_not_create_event[excluded]" time="0.047"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'excluded'
+
+    @pytest.mark.parametrize('case', ['wrong_attribute', 'generic_prose', 'excluded', 'nested_owner'])
+    def test_unowned_or_unregistered_state_evidence_does_not_create_event(tmp_path, case):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;section id="state" data-state="deleted"&gt;'
+                                  'Some discussion mentioning removed content.&lt;/section&gt;&lt;/article&gt;')
+        root, marker = element(evidence, 'outer'), element(evidence, 'state')
+        selected = contribution(root)
+        selected['state'] = {'value': 'removed', 'evidence': [marker]}
+        contributions = [selected]
+        if case == 'generic_prose':
+            selected['state']['evidence'] = [text_node(evidence, marker)]
+        elif case == 'excluded':
+            selected['state']['value'] = 'deleted'
+            selected['excluded'] = [{'node': marker, 'reason': 'interface'}]
+        elif case == 'nested_owner':
+            selected['state']['value'] = 'deleted'
+            nested = contribution(marker)
+            nested['state'] = {'value': 'deleted', 'evidence': [marker]}
+            contributions.append(nested)
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, contributions))
+&gt;       assert result['record_observations'] == (1 if case == 'nested_owner' else 0)
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:308: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_unowned_or_unregistered_state_evidence_does_not_create_event[nested_owner]" time="0.065"><failure message="assert 2 == 1">tmp_path = PosixPath('<pytest-temporary-path>
+case = 'nested_owner'
+
+    @pytest.mark.parametrize('case', ['wrong_attribute', 'generic_prose', 'excluded', 'nested_owner'])
+    def test_unowned_or_unregistered_state_evidence_does_not_create_event(tmp_path, case):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;section id="state" data-state="deleted"&gt;'
+                                  'Some discussion mentioning removed content.&lt;/section&gt;&lt;/article&gt;')
+        root, marker = element(evidence, 'outer'), element(evidence, 'state')
+        selected = contribution(root)
+        selected['state'] = {'value': 'removed', 'evidence': [marker]}
+        contributions = [selected]
+        if case == 'generic_prose':
+            selected['state']['evidence'] = [text_node(evidence, marker)]
+        elif case == 'excluded':
+            selected['state']['value'] = 'deleted'
+            selected['excluded'] = [{'node': marker, 'reason': 'interface'}]
+        elif case == 'nested_owner':
+            selected['state']['value'] = 'deleted'
+            nested = contribution(marker)
+            nested['state'] = {'value': 'deleted', 'evidence': [marker]}
+            contributions.append(nested)
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, contributions))
+&gt;       assert result['record_observations'] == (1 if case == 'nested_owner' else 0)
+E       assert 2 == 1
+
+tests/test_revision_semantic_gates.py:308: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_empty_identity_keeps_useful_text_without_invented_permalink" time="0.052"><failure message="AssertionError: assert 'uri' == 'source_local'&#10;  &#10;  - source_local&#10;  + uri">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_empty_identity_keeps_useful_text_without_invented_permalink(tmp_path):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;a id="link" href=""&gt;&lt;/a&gt;&lt;p id="body"&gt;Still useful.&lt;/p&gt;&lt;/article&gt;')
+        root = element(evidence, 'outer')
+        selected = contribution(root, [part(element(evidence, 'body'))])
+        selected['identity'] = {'kind': 'uri', 'basis': 'identity_link', 'evidence': [root],
+                                'source': {'node': element(evidence, 'link'), 'kind': 'attribute', 'attribute': 'href'}}
+        result, records, _ = run_serialized(tmp_path, capture, plan_for(evidence, [selected]))
+        assert result['record_observations'] == 1
+&gt;       assert records[0]['record_key']['id_type'] == 'source_local'
+E       AssertionError: assert 'uri' == 'source_local'
+E         
+E         - source_local
+E         + uri
+
+tests/test_revision_semantic_gates.py:321: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_whitespace_only_parts_are_not_positive_contribution_evidence" time="0.051"><failure message="assert 1 == 0">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_whitespace_only_parts_are_not_positive_contribution_evidence(tmp_path):
+        capture, evidence = setup(tmp_path, '&lt;article id="outer"&gt;&lt;p id="body"&gt; \n\t &lt;/p&gt;&lt;/article&gt;')
+        chosen = contribution(element(evidence, 'outer'), [part(element(evidence, 'body'))])
+        result, records, run = run_serialized(tmp_path, capture, plan_for(evidence, [chosen]))
+&gt;       assert result['record_observations'] == 0
+E       assert 1 == 0
+
+tests/test_revision_semantic_gates.py:330: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_mock_and_recipe_unknown_relation_are_omitted_by_same_executor" time="0.027"><failure message="assert b'{&quot;actor&quot;:nu...:&quot;unknown&quot;}\n' == b''&#10;  &#10;  Use -v to get more diff">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_mock_and_recipe_unknown_relation_are_omitted_by_same_executor(tmp_path):
+        from ahif_html.planner import discover
+        from ahif_html.provider import RecordedProvider
+        from ahif_html.recipes import apply_recipe
+        from test_planner import configuration
+        capture, evidence, plan = empty_case(tmp_path, 'unknown_relation')
+        proposal = {'action': 'propose', 'proposal': {k: plan[k] for k in ('contributions', 'rejected', 'unresolved')}}
+        result = discover(capture, configuration(), tmp_path / 'discovery', META, provider=RecordedProvider([proposal], 'mock'))
+        assert result['failure'] is None
+&gt;       assert (tmp_path / 'discovery/extraction/bundle/records.jsonl').read_bytes() == b''
+E       assert b'{"actor":nu...:"unknown"}\n' == b''
+E         
+E         Use -v to get more diff
+
+tests/test_revision_semantic_gates.py:344: AssertionError</failure></testcase><testcase classname="tests.test_revision_semantic_gates" name="test_semantic_gate_is_bound_in_observation_and_interpretation" time="0.001"><failure message="ImportError: cannot import name 'GATE_CONTRACT' from 'ahif_html.common' (<baseline-checkout>/src/ahif_html/common.py)">tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_semantic_gate_is_bound_in_observation_and_interpretation(tmp_path):
+&gt;       from ahif_html.common import GATE_CONTRACT, GATE_SHA
+E       ImportError: cannot import name 'GATE_CONTRACT' from 'ahif_html.common' (<baseline-checkout>/src/ahif_html/common.py)
+
+tests/test_revision_semantic_gates.py:357: ImportError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,31 @@
+F.F                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_inspect_honors_100_byte_accepted_output_limit ______________
+
+tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_inspect_honors_100_byte_accepted_output_limit(tmp_path):
+        process, out, receipt = inspect(tmp_path, 'small', 100)
+>       assert process.returncode == 2
+E       assert 0 == 2
+E        +  where 0 = CompletedProcess(args=['<extractor-workspace>/....d exec syscall denial","scope":"deterministic CLI process and inherited descendants","wall_seconds":60}}\n', stderr='').returncode
+
+tests/test_output_publication_limits.py:30: AssertionError
+__________ test_inspect_one_byte_over_limit_has_only_bounded_failure ___________
+
+tmp_path = PosixPath('<pytest-temporary-path>
+
+    def test_inspect_one_byte_over_limit_has_only_bounded_failure(tmp_path):
+        process, normal, _ = inspect(tmp_path, 'measure')
+        assert process.returncode == 0
+        exact = size(normal)
+        process2, limited, receipt = inspect(tmp_path, 'below', exact - 1)
+>       assert process2.returncode == 2 and receipt['status'] == 'resource_limit'
+E       assert (0 == 2)
+E        +  where 0 = CompletedProcess(args=['<extractor-workspace>/....d exec syscall denial","scope":"deterministic CLI process and inherited descendants","wall_seconds":60}}\n', stderr='').returncode
+
+tests/test_output_publication_limits.py:55: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_output_publication_limits.py::test_inspect_honors_100_byte_accepted_output_limit
+FAILED tests/test_output_publication_limits.py::test_inspect_one_byte_over_limit_has_only_bounded_failure
+2 failed, 1 passed, 1 deselected in 0.56s

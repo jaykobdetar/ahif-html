@@ -1,3 +1,11 @@
 # Captured fixture bytes are evidence; never normalize their line endings.
 examples/fictional/*.html -text whitespace=cr-at-eol
 examples/recipes/*.html -text whitespace=cr-at-eol
+
+# Preserve capture and published receipt hashes across checkouts.
+examples/discovery-v2/*.html -text whitespace=cr-at-eol
+provenance/evaluation-20260916/** -text
+
+# Preserve historical pytest output, including its intentional trailing spaces.
+provenance/evaluation-20260916/repairs/paired/baseline-regressions.txt whitespace=-blank-at-eol
+provenance/evaluation-20260916/repairs/paired/baseline-regressions.xml whitespace=-blank-at-eol

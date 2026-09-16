@@ -1,0 +1,124 @@
+{
+  "designation": "reconstructed-user-findings-fictional-probes-v2",
+  "phase": "repaired",
+  "annotation_provenance": "implementation-agent construction truth; original reviewer files unavailable",
+  "time_utc": "2026-09-16T05:25:54.026543+00:00",
+  "python": "3.12.3",
+  "software_version": "0.2.0",
+  "implementation": [
+    {
+      "module": "ahif_html.common",
+      "path": "<extractor-workspace>/src/ahif_html/common.py",
+      "sha256": "dd8ca9f16b1494ae7b6decabd9a7d053251c0602a2435ee5037bb0d48fd5968d"
+    },
+    {
+      "module": "ahif_html.plans",
+      "path": "<extractor-workspace>/src/ahif_html/plans.py",
+      "sha256": "fcf1b38d1514c6eefa9f4a7e55172c5f5cfbeeb3c049da906f6749c5fa5181ef"
+    },
+    {
+      "module": "ahif_html.executor",
+      "path": "<extractor-workspace>/src/ahif_html/executor.py",
+      "sha256": "1d978e53225c089057e8f9162711358ca5c4a834a328c5a3fb9f678be1c5feb9"
+    }
+  ],
+  "model_calls": 0,
+  "cases": [
+    {
+      "case": "quote_child_element",
+      "expectation": "ancestor_refusal",
+      "execution_status": "refused",
+      "reason": "structural_quote_or_code_ancestor_forbids_body_title",
+      "record_observations": null,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "quote_child_text_title",
+      "expectation": "ancestor_refusal",
+      "execution_status": "refused",
+      "reason": "structural_quote_or_code_ancestor_forbids_body_title",
+      "record_observations": null,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "code_deep_child",
+      "expectation": "ancestor_refusal",
+      "execution_status": "refused",
+      "reason": "structural_quote_or_code_ancestor_forbids_body_title",
+      "record_observations": null,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "pre_container_relocated",
+      "expectation": "ancestor_refusal",
+      "execution_status": "refused",
+      "reason": "structural_quote_or_code_ancestor_forbids_body_title",
+      "record_observations": null,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "quote_known_actor",
+      "expectation": "ancestor_refusal",
+      "execution_status": "refused",
+      "reason": "structural_quote_or_code_ancestor_forbids_body_title",
+      "record_observations": null,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "unknown_relation",
+      "expectation": "no_evidence_omission",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 0,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "empty_native",
+      "expectation": "no_evidence_omission",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 0,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "blank_native",
+      "expectation": "no_evidence_omission",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 0,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "empty_uri",
+      "expectation": "no_evidence_omission",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 0,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "unfounded_state",
+      "expectation": "no_evidence_omission",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 0,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "state_marker",
+      "expectation": "textless_positive",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 1,
+      "reconstructed_invariant_passed": true
+    },
+    {
+      "case": "positive_body_quote_body",
+      "expectation": "positive_parts",
+      "execution_status": "returned",
+      "reason": null,
+      "record_observations": 1,
+      "reconstructed_invariant_passed": true
+    }
+  ]
+}

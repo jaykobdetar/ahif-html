@@ -1,0 +1,41 @@
+{
+  "budgets": {
+    "max_calls": 12,
+    "max_input_token_charge": 1000000,
+    "max_input_tokens_total": 196608,
+    "max_inspected_characters": 120000,
+    "max_output_tokens_per_call": 8192,
+    "max_output_tokens_total": 98304,
+    "max_recording_bytes": 8388608,
+    "max_repairs": 2,
+    "max_response_bytes": 262144,
+    "max_retries": 0,
+    "max_tool_calls": 64,
+    "max_wall_seconds": 300
+  },
+  "data_approval": {
+    "approved": false,
+    "data_classes": [
+      "synthetic"
+    ],
+    "capture_sha256": [],
+    "declaration": "Set an explicit approved scope and capture hashes before inference. No private or real data in this experimental profile."
+  },
+  "endpoint": "https://api.openai.com/v1/responses",
+  "min_available_memory_mib": 1536,
+  "mode": "live",
+  "model": "gpt-5.6-luna",
+  "num_ctx": 16384,
+  "provider_location": "hosted",
+  "response_format": "schema",
+  "responses_file": null,
+  "reviewer": false,
+  "tunnel_declaration": null,
+  "version": "1.1.1",
+  "openai": {
+    "reasoning_effort": "medium",
+    "api_key_env": "OPENAI_API_KEY",
+    "budget_ledger": "/absolute/private/luna-spending.jsonl",
+    "wire_mode": "result_or_action"
+  }
+}

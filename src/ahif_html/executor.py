@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 from urllib.parse import urljoin, urlsplit
 
-from .common import (C, PROFILE, PROFILE_SHA, Failure, ahif, bound, check_path,
+from .common import (C, PROFILE, PROFILE_SHA, GATE_CONTRACT, GATE_SHA, Failure, ahif, bound, check_path,
                      fresh, limits_for, load_json, safe_read, sha, validate, write_json)
 from . import index as indexing
 from . import __version__
@@ -90,6 +90,8 @@ def namespace(metadata):
 
 def resolved_uri(raw, metadata):
     """Only supplied HTTP(S) source URL is a base; no HTML base or redirects."""
+    if not raw or not raw.strip():
+        return None, 'empty_identity_value'
     if ahif.absolute_uri(raw):
         return raw, 'identity_uri_as_supplied'
     base = metadata.get('source_url')
@@ -141,6 +143,39 @@ def _sources(author):
     return [v for v in (author.get('label'), author.get('identity', {}).get('source') if author.get('identity') else None) if v]
 
 
+def _captured_state_support(index, plan, contribution):
+    """Narrow positive evidence for a textless lifecycle observation.
+
+    The declared state enum and container existence alone are insufficient. This
+    gate recognizes an exact data-state value or an explicitly referenced text
+    node containing only that state marker. It does not infer arbitrary prose or
+    establish that the source's state assertion is true.
+    """
+    state = contribution['state']
+    if state is None:
+        return False
+    nodes = indexing.by_ref(index)
+    blocked = {item['node'] for item in contribution['excluded']}
+    blocked.update(ref for part in contribution['parts'] for ref in part['exclude'])
+    own_scope = {node['ref'] for node in indexing.descendants(index, contribution['container'])}
+    blocked.update(other['container'] for other in plan['contributions']
+                   if other['container'] != contribution['container'] and other['container'] in own_scope)
+    for ref in state['evidence']:
+        node = nodes[ref]
+        ancestor = node
+        while ancestor is not None:
+            if ancestor['ref'] in blocked or ancestor['flags'] or ancestor['tag'] in ('blockquote', 'pre', 'code'):
+                break
+            ancestor = nodes.get(ancestor['parent'])
+        if ancestor is not None:
+            continue
+        if node['kind'] == 'element' and indexing.attrs(node).get('data-state') == state['value']:
+            return True
+        if node['kind'] == 'text' and node['text'].strip().casefold() in (state['value'], '[' + state['value'] + ']'):
+            return True
+    return False
+
+
 def _one_record(index, plan, number, source, limits):
     contribution = plan['contributions'][number]
     container = contribution['container']
@@ -157,7 +192,7 @@ def _one_record(index, plan, number, source, limits):
         raw = indexing.read_value(index, identity['source'])
         if identity['kind'] == 'native':
             collection = NATIVE_COLLECTIONS.get(identity['source'].get('attribute'))
-            if collection and authority != 'urn:ahif:source-local':
+            if raw.strip() and collection and authority != 'urn:ahif:source-local':
                 record_key = key(authority, collection, 'native', raw)
                 identity_operation = 'documented_native_id'
             else:
@@ -256,7 +291,7 @@ def _one_record(index, plan, number, source, limits):
     for relation_number, relation in enumerate(contribution['relations']):
         raw = indexing.read_value(index, relation['target']) if relation['target'] else None
         target_key, target_url, resolution = None, None, 'unknown'
-        if raw:
+        if raw and raw.strip():
             if relation['kind'] == 'native' and authority != 'urn:ahif:source-local':
                 collection = RELATION_COLLECTIONS.get(relation['target'].get('attribute'))
                 if collection:
@@ -285,11 +320,19 @@ def _one_record(index, plan, number, source, limits):
                       'url_as_supplied': raw, 'resolved_url': None, 'resolution_basis': 'not_attempted'})
         fields.append(_field('/links/' + str(len(links) - 1) + '/url_as_supplied', [planned_link['source']],
                              outcome='grounded', decision=decision_root + '/links/' + str(link_number)))
-    # An empty arbitrary container, even with a model-supplied kind, is not evidence
-    # of a contribution. A grounded identity or relationship can support textless actions.
-    if not parts and not identity and not relations and not contribution['state']:
+    # Count supported values, not the presence of plan objects/lists. Unknown
+    # relations, blank identity fields, and an ungrounded state enum cannot turn
+    # an arbitrary empty container into a posting event. Whitespace is preserved
+    # in emitted text but is not sufficient evidence by itself.
+    positive_text = any(part['text'].strip() for part in parts)
+    positive_identity = record_key['id_type'] in ('native', 'uri') and bool(record_key['id'].strip())
+    positive_relation = any(relation['resolution'] == 'known_identity' and relation['target_key'] is not None
+                            and relation['target_key']['id'].strip() for relation in relations)
+    positive_state = _captured_state_support(index, plan, contribution)
+    if not (positive_text or positive_identity or positive_relation or positive_state):
         raise Failure('no_actual_contribution_evidence', 'no_contributions_observed')
-    normalizer_binding = {'profile_sha256': PROFILE_SHA, 'plan_id': pid, 'index_id': index['index_id']}
+    normalizer_binding = {'profile_sha256': PROFILE_SHA, 'gate_contract_version': GATE_CONTRACT['version'],
+                          'gate_contract_sha256': GATE_SHA, 'plan_id': pid, 'index_id': index['index_id']}
     record = {'format_version': '0.1.1', 'record_key': record_key, 'source_id': source_id,
               'observed_at': source['content_as_of'], 'actor': actor, 'kind': contribution['kind'],
               **times, 'lifecycle': {'state': state, 'edit_state': 'edited' if times['updated_at']['status'] != 'unknown' else 'unknown', 'native_revision_id': None},
@@ -432,8 +475,9 @@ def materialize(index, plan, limits=None):
     excluded = {x['node'] for x in plan['rejected']}
     unresolved = {x['node'] for x in plan['unresolved']}
     # These describe index regions, not a recall/completeness claim.
-    interpretation = {'interpretation_version': '1.0.0', 'plan_id': plan_id(plan), 'profile': PROFILE,
+    interpretation = {'interpretation_version': '1.1.0', 'plan_id': plan_id(plan), 'profile': PROFILE,
                       'profile_sha256': PROFILE_SHA, 'capture_sha256': index['capture']['sha256'],
+                      'gate_contract': GATE_CONTRACT, 'gate_contract_sha256': GATE_SHA,
                       'index_id': index['index_id'], 'review': plan['review'],
                       'region_accounting': {'indexed_nodes': len(refs), 'selected_containers': sorted(selected),
                                             'rejected_regions': plan['rejected'], 'unresolved_regions': plan['unresolved'],
@@ -539,6 +583,6 @@ def verify(capture, plan, run, metadata=None, limits=None):
             'metadata_basis': 'supplied_or_stored_capture_declarations', 'authenticity': 'not_established'}
 
 
-def review(run, destination):
+def review(run, destination, limits=None):
     from .review import review as render
-    return render(run, destination)
+    return render(run, destination, limits=limits)

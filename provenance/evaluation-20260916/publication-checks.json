@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "executed_at": "2026-09-16T11:36:23.202909+00:00",
+  "purpose": "Fresh repository publication checks, not new model inference",
+  "status": "passed_with_documented_path_limitation",
+  "python": "3.12.3",
+  "independent_checkout": {
+    "files": 1449,
+    "qa_private_env_and_git_omitted": true,
+    "dependencies": "new isolated environment; frozen lock; offline cache",
+    "source_snapshot_sha256": "387baaa768540b5cdfc8d583dcd747f560269fbe05c7e5e3494696369c39725c",
+    "tested_runtime_changes_after_snapshot": []
+  },
+  "tests": {
+    "passed": 328,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_seconds": "15.06"
+  },
+  "model_free_cli_checks": 13,
+  "canonical_replay_files": 8,
+  "published_historical_replays": {
+    "passed": 22,
+    "failed": 0,
+    "canonical_files": 176,
+    "receipt": "public-replay-check.json"
+  },
+  "packages": {
+    "sdist": {
+      "file": "ahif_html-0.2.0.tar.gz",
+      "sha256": "8d6bde714897c3ad15717735848d58e045cf3ca4684f509fcc00373d5bf5ebe2",
+      "members": 171
+    },
+    "wheel": {
+      "file": "ahif_html-0.2.0-py3-none-any.whl",
+      "sha256": "3b4c1884a6edb31fbeea95d9eb2aa2ffa22793997b156f379bd6312dc8446f06",
+      "members": 46
+    },
+    "baseline_manifests_and_reports_in_sdist": true,
+    "private_qa_and_credentials_excluded": true
+  },
+  "installed_wheel_canonical_equal_to_checkout": true,
+  "commands": [
+    {
+      "command": "UV_CACHE_DIR=<writable-cache> uv sync --frozen --offline --python python3.12",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/python scripts/verify_delivery.py --out <fresh-directory>",
+      "exit_code": 0
+    },
+    {
+      "command": "UV_CACHE_DIR=<writable-cache> uv build --offline --out-dir <distributions>",
+      "exit_code": 0
+    },
+    {
+      "command": "<wheel-environment>/bin/python -m pytest -q tests/test_luna_trial.py",
+      "exit_code": 0,
+      "result": "30 passed in 4.36s"
+    },
+    {
+      "command": "<wheel-environment>/bin/ahif-html extract --capture examples/fictional/forum.html --metadata examples/fictional/forum.metadata.json --plan examples/fictional/forum.plan.json --out <fresh-directory>",
+      "exit_code": 0
+    },
+    {
+      "command": "<wheel-environment>/bin/ahif-html verify --capture examples/fictional/forum.html --metadata examples/fictional/forum.metadata.json --plan examples/fictional/forum.plan.json --run <normalized-absolute-run>",
+      "exit_code": 0
+    }
+  ],
+  "earlier_publication_attempts": [
+    {
+      "stage": "first fresh checkout tests",
+      "exit_code": 1,
+      "passed": 327,
+      "failed": 1,
+      "reason": "New test inspected every ancestor folder name and falsely rejected a checkout itself located below a folder named qa. Assertion now rejects only actual private/qa subtrees. No production behavior changed.",
+      "original_output_sha256": "eb721e81048f7e9c32f52c6f4ac3aa7926fe58b0beea07792a4a6fd67dba29a7"
+    },
+    {
+      "stage": "first dependency export for package environment",
+      "reason": "Writable cache setting did not reach process-substitution export; that export failed and produced no dependencies. Retried as explicit sequential export/install with the same frozen lock. No final verification used the empty environment."
+    },
+    {
+      "stage": "installed-wheel verification with ../../run path",
+      "exit_code": 1,
+      "reason": "Pinned checker refused unresolved parent segments as Bundle traversal. Verification passed using the same run under its normalized absolute path. Runtime/reference bytes were not changed; limitation documented."
+    }
+  ],
+  "history": {
+    "preexisting_qa_files_checked": 3560,
+    "changed": []
+  },
+  "paid_calls": 0,
+  "private_data_published": false,
+  "committed_at_check": false,
+  "pushed_at_check": false
+}

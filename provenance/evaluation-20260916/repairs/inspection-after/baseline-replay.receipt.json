@@ -1,0 +1,18 @@
+{
+  "command": [
+    "<extractor-workspace>/.venv/bin/python",
+    "-m",
+    "ahif_html",
+    "verify",
+    "--capture",
+    "<extractor-workspace>/examples/fictional/forum.html",
+    "--plan",
+    "<extractor-workspace>/examples/fictional/forum.plan.json",
+    "--run",
+    "<extractor-workspace>/qa/delivery-final/m1"
+  ],
+  "exit_code": 0,
+  "environment": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "code_basis": "immutable uploaded baseline",
+  "status": "passed"
+}

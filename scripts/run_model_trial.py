@@ -18,6 +18,7 @@ import time
 
 from ahif_html.common import C, Failure, check_path, load_json, safe_read, sha, write_json
 from ahif_html.provider import validate_config
+from ahif_html.planner import DISCOVERY_VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 JOBS = (
@@ -120,7 +121,7 @@ def main():
                                'max_inspected_characters': len(JOBS) * base['budgets']['max_inspected_characters'],
                                'max_reserved_input_tokens': args.max_provider_calls * base['num_ctx'],
                                'max_reserved_output_tokens': args.max_provider_calls * base['budgets']['max_output_tokens_per_call']},
-                    'runtime_prompt_sha256': {name: sha((ROOT / 'src/ahif_html/prompts/1.0.0' / (name + '.txt')).read_bytes())
+                    'runtime_prompt_sha256': {name: sha((ROOT / 'src/ahif_html/prompts' / DISCOVERY_VERSION / (name + '.txt')).read_bytes())
                                               for name in ('planner', 'reviewer')},
                     'implementation_sha256': {name: sha((ROOT / 'src/ahif_html' / (name + '.py')).read_bytes())
                                               for name in ('provider', 'planner', 'index', 'plans', 'executor', 'common', 'evaluate')},

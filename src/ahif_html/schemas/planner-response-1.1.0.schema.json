@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ahif-html:planner-response:1.1.0",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "tool"
+          ]
+        },
+        "name": {
+          "enum": [
+            "page_outline",
+            "inspect_node",
+            "inspect_neighbors",
+            "read_attribute",
+            "search_text",
+            "find_structural_candidates",
+            "preview_plan",
+            "candidate_inventory",
+            "inspect_candidate"
+          ]
+        },
+        "arguments": {
+          "type": "object",
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "action",
+        "name",
+        "arguments"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "propose"
+          ]
+        },
+        "proposal": {
+          "type": "object",
+          "properties": {
+            "contributions": {
+              "type": "array",
+              "maxItems": 5000,
+              "items": {
+                "type": "object"
+              }
+            },
+            "rejected": {
+              "type": "array",
+              "maxItems": 5000,
+              "items": {
+                "type": "object"
+              }
+            },
+            "unresolved": {
+              "type": "array",
+              "maxItems": 5000,
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "contributions",
+            "rejected",
+            "unresolved"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "action",
+        "proposal"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "ready_for_review"
+          ]
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "node": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "interpretation": {
+                "enum": [
+                  "possible_contribution",
+                  "non_contribution",
+                  "uncertain"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "minItems": 1,
+                "maxItems": 128
+              }
+            },
+            "required": [
+              "node",
+              "interpretation",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 5000
+        }
+      },
+      "required": [
+        "action",
+        "observations"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "review"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "revise"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "properties": {
+              "node": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "reason": {
+                "enum": [
+                  "wrong_author",
+                  "wrong_role",
+                  "missing_contribution",
+                  "wrong_time",
+                  "unsafe_interpretation",
+                  "insufficient_evidence",
+                  "uncertain_identity",
+                  "invalid_boundary"
+                ]
+              }
+            },
+            "required": [
+              "node",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "node": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "decision": {
+                "enum": [
+                  "supported",
+                  "issue",
+                  "unresolved"
+                ]
+              },
+              "aspects": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "boundary",
+                    "author",
+                    "roles",
+                    "time",
+                    "omissions"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 5,
+                "maxItems": 5
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "minItems": 1,
+                "maxItems": 128
+              }
+            },
+            "required": [
+              "node",
+              "decision",
+              "aspects",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 5000
+        }
+      },
+      "required": [
+        "action",
+        "decision",
+        "issues",
+        "checks"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "refuse"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "insufficient_evidence",
+            "unsupported_representation",
+            "resource_limit",
+            "untrusted_instructions"
+          ]
+        }
+      },
+      "required": [
+        "action",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

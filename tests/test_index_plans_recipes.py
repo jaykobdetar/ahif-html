@@ -184,7 +184,7 @@ def test_title_only_preserves_unknown_body_completeness():
     r=json.loads(materialize(i,p)[0]['bundle/records.jsonl'])
     assert [(part['role'],part['text']) for part in r['content']['parts']]==[('title','A title is separate')]
     assert r['content']['completeness']=='unknown'
-    assert r['provenance']['normalizer']['version']=='0.1.0'
+    assert r['provenance']['normalizer']['version']=='0.2.0'
 
 def test_batch_deadline_preserves_partial_receipt(tmp_path,monkeypatch):
     import time
